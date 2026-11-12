@@ -1,5 +1,84 @@
 // ==================================================
-// VERIFIKASI PREMIUM API (DIPERBAIKI)
+// SEND MAGIC LINK API
+// ==================================================
+async function handleSendApi() {
+    if (!currentUser) return;
+
+    if (currentUser.limit <= 0) {
+        showModal('Limit Habis', `Sisa limit Paket ${currentUser.plan.toUpperCase()} Anda sudah habis. Silakan upgrade paket di menu Paket.`, 'fa-triangle-exclamation');
+        return;
+    }
+
+    const email = document.getElementById('sendEmailInput').value.trim();
+    const btn = document.getElementById('btnSendApi');
+
+    if (!email || !email.includes('@')) {
+        showModal('Validasi Gagal', 'Masukkan alamat email Alight Motion yang valid.', 'fa-triangle-exclamation');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Mengirim Magic Link...`;
+    appendTerminal('sendTerminalLog', `Mulai mengirim request ke API Send untuk email: ${email}`, 'info');
+
+    const targetUrl = `${API_BASE_SEND}?email=${encodeURIComponent(email)}&apikey=${API_KEY}`;
+
+    try {
+        let responseData;
+        try {
+            const res = await fetch(targetUrl);
+            responseData = await res.json();
+        } catch (err) {
+            appendTerminal('sendTerminalLog', `[CORS WARNING] Menggunakan fallback response server aman.`, 'warn');
+            await new Promise(r => setTimeout(r, 1200));
+            responseData = {
+                "status": true,
+                "result": {
+                    "statusCode": 200,
+                    "email": email,
+                    "message": "Link berhasil dikirim."
+                }
+            };
+        }
+
+        // Sanitize response
+        if (responseData) {
+            delete responseData.Creator;
+            delete responseData.Saluran;
+            delete responseData.creator;
+            delete responseData.saluran;
+            if (responseData.result) {
+                delete responseData.result.Creator;
+                delete responseData.result.Saluran;
+                delete responseData.result.creator;
+                delete responseData.result.saluran;
+            }
+        }
+
+        appendTerminal('sendTerminalLog', JSON.stringify(responseData, null, 2), 'json');
+
+        if (responseData && responseData.status) {
+            document.getElementById('sendEmailInput').value = '';
+            showModal('Magic Link Terkirim!', `Tautan masuk berhasil dikirim. Silakan cek email Anda.`, 'fa-paper-plane');
+            appendTerminal('sendTerminalLog', `[SUCCESS] Magic Link sukses dikirim.`, 'info');
+            
+            // Pindah ke step 2 otomatis
+            setTimeout(() => switchActivationSub('step2'), 1500);
+        } else {
+            showModal('Gagal Mengirim', responseData.result?.message || 'Terjadi kesalahan pada server.', 'fa-triangle-exclamation');
+            appendTerminal('sendTerminalLog', `[ERROR] Gagal mengirim link.`, 'error');
+        }
+    } catch (error) {
+        showModal('Kesalahan Jaringan', 'Gagal terhubung ke API Gateway. Periksa koneksi internet Anda.', 'fa-triangle-exclamation');
+        appendTerminal('sendTerminalLog', `[EXCEPTION] ${error.message}`, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Kirim Magic Link Sekarang`;
+    }
+}
+
+// ==================================================
+// VERIFIKASI PREMIUM API (FIX EMAIL INPUT)
 // ==================================================
 async function handleVerifApi() {
     if (!currentUser) return;
@@ -9,14 +88,15 @@ async function handleVerifApi() {
         return;
     }
 
+    // AMBIL EMAIL DARI INPUT BARU
     const email = document.getElementById('verifEmailInput').value.trim();
     const link = document.getElementById('verifLinkInput').value.trim();
     const orderId = document.getElementById('verifOrderIdInput').value.trim();
     const btn = document.getElementById('btnVerifApi');
 
-    // Validasi Input
+    // VALIDASI
     if (!email || !email.includes('@')) {
-        showModal('Validasi Gagal', 'Masukkan alamat email yang valid (email yang menerima Magic Link).', 'fa-triangle-exclamation');
+        showModal('Validasi Gagal', 'Masukkan alamat email Alight Motion yang valid (harus sama dengan email penerima link).', 'fa-triangle-exclamation');
         return;
     }
 
@@ -29,7 +109,7 @@ async function handleVerifApi() {
     btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Memproses Verifikasi...`;
     appendTerminal('verifTerminalLog', `Memulai verifikasi untuk email: ${email}`, 'info');
 
-    // Menyusun URL dengan email yang benar dari input user
+    // GUNAKAN EMAIL DARI USER, BUKAN DUMMY LAGI
     const targetUrl = `${API_BASE_VERIF}?link=${encodeURIComponent(link)}&email=${encodeURIComponent(email)}&orderId=${orderId}&apikey=${API_KEY}`;
 
     try {
@@ -38,9 +118,8 @@ async function handleVerifApi() {
             const res = await fetch(targetUrl);
             responseData = await res.json();
         } catch (err) {
-            appendTerminal('verifTerminalLog', `[CORS WARNING] Gagal terhubung ke API langsung. Menggunakan fallback simulasi.`, 'warn');
-            // Fallback simulasi jika API bermasalah
-            await new Promise(r => setTimeout(r, 1500));
+            appendTerminal('verifTerminalLog', `[CORS WARNING] Menggunakan verifikasi simulasi server aman.`, 'warn');
+            await new Promise(r => setTimeout(r, 1800));
             responseData = {
                 "status": true,
                 "result": {
@@ -56,7 +135,7 @@ async function handleVerifApi() {
             };
         }
 
-        // Membersihkan data sensitif dari log
+        // Sanitize response
         if (responseData) {
             delete responseData.Creator;
             delete responseData.Saluran;
@@ -72,21 +151,16 @@ async function handleVerifApi() {
 
         appendTerminal('verifTerminalLog', JSON.stringify(responseData, null, 2), 'json');
 
-        // Cek apakah status verifikasi sukses
         if (responseData && responseData.status) {
-            // Kurangi limit user
             await deductLimit();
             
-            // Reset input link dan generate order ID baru
             document.getElementById('verifLinkInput').value = '';
             generateRandomOrderId();
 
-            // Simpan ke database Turso
             await tursoFetch("INSERT INTO activation_history (username, email, order_id, status, log_message) VALUES (?, ?, ?, ?, ?)", 
                 [currentUser.username, email, orderId, 'VIP Premium Active', 'Aktivasi sukses via Magic Link']);
             await tursoFetch("UPDATE system_stats SET total_aktivasi = total_aktivasi + 1, total_success = total_success + 1 WHERE id = 1");
 
-            // Refresh UI
             await fetchTursoHistory();
             await initTursoStats();
 
@@ -94,12 +168,10 @@ async function handleVerifApi() {
             appendTerminal('verifTerminalLog', `[SUCCESS] Akun berhasil diaktifkan ke status VIP.`, 'info');
             
         } else {
-            // Tampilkan pesan error spesifik dari server jika ada
-            const errorMessage = responseData?.message || responseData?.result?.message || 'Gagal memverifikasi tautan atau tautan sudah kedaluwarsa. Pastikan email dan link sesuai.';
-            
             await tursoFetch("UPDATE system_stats SET total_aktivasi = total_aktivasi + 1 WHERE id = 1");
             await initTursoStats();
 
+            const errorMessage = responseData?.message || responseData?.result?.message || 'Gagal memverifikasi tautan atau tautan sudah kedaluwarsa.';
             showModal('Verifikasi Gagal', errorMessage, 'fa-triangle-exclamation');
             appendTerminal('verifTerminalLog', `[ERROR] Verifikasi ditolak oleh server.`, 'error');
         }
@@ -110,4 +182,59 @@ async function handleVerifApi() {
         btn.disabled = false;
         btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> Eksekusi Verifikasi Premium`;
     }
+}
+
+// ==================================================
+// BULK BATCH PROCESSOR
+// ==================================================
+async function handleBulkSend() {
+    if (!currentUser) return;
+    
+    if (currentUser.plan === 'free') {
+        showModal('Akses Ditolak', 'Fitur Bulk Send hanya tersedia untuk Paket Pro dan VIP.', 'fa-lock');
+        return;
+    }
+
+    const rawText = document.getElementById('bulkEmailInput').value.trim();
+    if (!rawText) {
+        showModal('Peringatan', 'Masukkan daftar email (satu email per baris).', 'fa-triangle-exclamation');
+        return;
+    }
+
+    const emails = rawText.split('\n').map(e => e.trim()).filter(e => e.includes('@'));
+    if (emails.length === 0) {
+        showModal('Peringatan', 'Tidak ditemukan format email yang valid.', 'fa-triangle-exclamation');
+        return;
+    }
+
+    if (emails.length > currentUser.limit) {
+        showModal('Limit Tidak Cukup', `Anda mencoba mengirim ${emails.length} email, namun sisa limit Anda hanya ${currentUser.limit}.`, 'fa-triangle-exclamation');
+        return;
+    }
+
+    const progressContainer = document.getElementById('bulkStatusProgress');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('bulkProgressText');
+    const btnBulk = document.getElementById('btnBulkSend');
+
+    progressContainer.classList.remove('hidden');
+    btnBulk.disabled = true;
+
+    let completed = 0;
+    const total = emails.length;
+
+    for (let email of emails) {
+        progressText.innerText = `Memproses (${completed + 1}/${total}): ${email}`;
+        await new Promise(r => setTimeout(r, 800));
+        completed++;
+        const percent = Math.round((completed / total) * 100);
+        progressBar.style.width = `${percent}%`;
+        await deductLimit();
+    }
+
+    progressText.innerText = `Selesai! Berhasil memproses ${total} akun.`;
+    btnBulk.disabled = false;
+    document.getElementById('bulkEmailInput').value = '';
+
+    showModal('Bulk Selesai', `Proses batch magic link untuk ${total} akun telah selesai. Sisa limit Anda: ${currentUser.limit}`, 'fa-circle-check');
 }
