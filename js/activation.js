@@ -1,3 +1,6 @@
+// Variabel untuk menyimpan email dari Step 1 secara otomatis
+let savedEmailForVerification = "";
+
 // ==================================================
 // SEND MAGIC LINK API
 // ==================================================
@@ -58,8 +61,12 @@ async function handleSendApi() {
         appendTerminal('sendTerminalLog', JSON.stringify(responseData, null, 2), 'json');
 
         if (responseData && responseData.status) {
+            // SIMPAN EMAIL KE VARIABEL GLOBAL AGAR BISA DIPAKAI DI STEP 2
+            savedEmailForVerification = email;
+            document.getElementById('activeVerifEmail').innerText = email;
+            
             document.getElementById('sendEmailInput').value = '';
-            showModal('Magic Link Terkirim!', `Tautan masuk berhasil dikirim. Silakan cek email Anda.`, 'fa-paper-plane');
+            showModal('Magic Link Terkirim!', `Tautan masuk berhasil dikirim ke ${email}. Silakan cek email Anda.`, 'fa-paper-plane');
             appendTerminal('sendTerminalLog', `[SUCCESS] Magic Link sukses dikirim.`, 'info');
             
             // Pindah ke step 2 otomatis
@@ -78,7 +85,7 @@ async function handleSendApi() {
 }
 
 // ==================================================
-// VERIFIKASI PREMIUM API (FIX EMAIL INPUT)
+// VERIFIKASI PREMIUM API
 // ==================================================
 async function handleVerifApi() {
     if (!currentUser) return;
@@ -88,15 +95,14 @@ async function handleVerifApi() {
         return;
     }
 
-    // AMBIL EMAIL DARI INPUT BARU
-    const email = document.getElementById('verifEmailInput').value.trim();
     const link = document.getElementById('verifLinkInput').value.trim();
     const orderId = document.getElementById('verifOrderIdInput').value.trim();
     const btn = document.getElementById('btnVerifApi');
 
-    // VALIDASI
-    if (!email || !email.includes('@')) {
-        showModal('Validasi Gagal', 'Masukkan alamat email Alight Motion yang valid (harus sama dengan email penerima link).', 'fa-triangle-exclamation');
+    // Cek apakah email sudah ada (dari step 1)
+    if (!savedEmailForVerification) {
+        showModal('Email Kosong', 'Anda belum melakukan Kirim Magic Link di Step 1. Silakan kirim link terlebih dahulu.', 'fa-triangle-exclamation');
+        switchActivationSub('step1');
         return;
     }
 
@@ -107,10 +113,10 @@ async function handleVerifApi() {
 
     btn.disabled = true;
     btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Memproses Verifikasi...`;
-    appendTerminal('verifTerminalLog', `Memulai verifikasi untuk email: ${email}`, 'info');
+    appendTerminal('verifTerminalLog', `Memulai verifikasi untuk email: ${savedEmailForVerification}`, 'info');
 
-    // GUNAKAN EMAIL DARI USER, BUKAN DUMMY LAGI
-    const targetUrl = `${API_BASE_VERIF}?link=${encodeURIComponent(link)}&email=${encodeURIComponent(email)}&orderId=${orderId}&apikey=${API_KEY}`;
+    // Gunakan email yang sudah disimpan otomatis
+    const targetUrl = `${API_BASE_VERIF}?link=${encodeURIComponent(link)}&email=${encodeURIComponent(savedEmailForVerification)}&orderId=${orderId}&apikey=${API_KEY}`;
 
     try {
         let responseData;
@@ -126,7 +132,7 @@ async function handleVerifApi() {
                     "orderId": orderId,
                     "message": "Verifikasi dan Premium berhasil diaplikasikan!",
                     "result": {
-                        "email": email,
+                        "email": savedEmailForVerification,
                         "orderId": orderId,
                         "status": "Premium Active"
                     },
@@ -158,15 +164,19 @@ async function handleVerifApi() {
             generateRandomOrderId();
 
             await tursoFetch("INSERT INTO activation_history (username, email, order_id, status, log_message) VALUES (?, ?, ?, ?, ?)", 
-                [currentUser.username, email, orderId, 'VIP Premium Active', 'Aktivasi sukses via Magic Link']);
+                [currentUser.username, savedEmailForVerification, orderId, 'VIP Premium Active', 'Aktivasi sukses via Magic Link']);
             await tursoFetch("UPDATE system_stats SET total_aktivasi = total_aktivasi + 1, total_success = total_success + 1 WHERE id = 1");
 
             await fetchTursoHistory();
             await initTursoStats();
 
-            showModal('Aktivasi VIP Berhasil!', `Verifikasi sukses! Akun Alight Motion (${email}) kini VIP Premium. Sisa limit Anda: ${currentUser.limit}`, 'fa-circle-check');
+            showModal('Aktivasi VIP Berhasil!', `Verifikasi sukses! Akun Alight Motion (${savedEmailForVerification}) kini VIP Premium. Sisa limit Anda: ${currentUser.limit}`, 'fa-circle-check');
             appendTerminal('verifTerminalLog', `[SUCCESS] Akun berhasil diaktifkan ke status VIP.`, 'info');
             
+            // Kosongkan email setelah sukses agar aman
+            savedEmailForVerification = "";
+            document.getElementById('activeVerifEmail').innerText = "- Belum ada email -";
+
         } else {
             await tursoFetch("UPDATE system_stats SET total_aktivasi = total_aktivasi + 1 WHERE id = 1");
             await initTursoStats();
