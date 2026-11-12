@@ -1,146 +1,55 @@
-<section id="tab-aktivasi" class="tab-content space-y-4">
-
-    <!-- MODE SUB NAV -->
-    <div class="grid grid-cols-2 gap-3">
-        <button id="btnSubStep1" onclick="switchActivationSub('step1')" class="py-3 px-3 bg-neo-accentBlue text-white font-black text-xs sm:text-sm rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> 1. Generator Link
-        </button>
-        <button id="btnSubStep2" onclick="switchActivationSub('step2')" class="py-3 px-3 bg-white text-neo-border font-black text-xs sm:text-sm rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
-            <i class="fa-solid fa-shield-check"></i> 2. Verifikasi & Aktifkan
-        </button>
-        <button id="btnSubHistory" onclick="switchActivationSub('history')" class="py-3 px-3 bg-white text-neo-border font-black text-xs sm:text-sm rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
-            <i class="fa-solid fa-list-check"></i> Riwayat & Status
-        </button>
-        <button id="btnSubBulk" onclick="switchActivationSub('bulk')" class="py-3 px-3 bg-white text-neo-border font-black text-xs sm:text-sm rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
-            <i class="fa-solid fa-layer-group"></i> Bulk Akun
-        </button>
+<!-- SUB TAB 2: VERIFIKASI LINK -->
+<div id="activation-step2" class="sub-tab-content hidden bg-white brutal-border shadow-neo-lg rounded-3xl p-5 space-y-4">
+    <div class="flex items-center justify-between border-b-2 border-neo-border pb-3">
+        <h3 class="font-black text-lg text-neo-border flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-green-600"></i> Step 2: Verifikasi & Aktifkan
+        </h3>
+        <span class="bg-neo-yellow text-xs font-bold px-2.5 py-1 rounded-lg brutal-border-sm">Auto / Manual</span>
     </div>
 
-    <!-- SUB TAB 1: GENERATOR LINK -->
-    <div id="activation-step1" class="sub-tab-content bg-white brutal-border shadow-neo-lg rounded-3xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b-2 border-neo-border pb-3">
-            <h3 class="font-black text-lg text-neo-border flex items-center gap-2">
-                <i class="fa-solid fa-paper-plane text-blue-600"></i> Step 1: Send Magic Link
-            </h3>
-            <span class="bg-neo-softCyan text-xs font-bold px-2.5 py-1 rounded-lg brutal-border-sm">Mode Otomatis</span>
+    <p class="text-xs font-semibold text-gray-600">
+        Masukkan Email yang sama persis dengan yang Anda gunakan saat meminta Magic Link, lalu tempelkan link dari email tersebut.
+    </p>
+
+    <div class="space-y-3">
+        <!-- INPUT EMAIL BARU -->
+        <div>
+            <label class="block text-xs font-black text-neo-border uppercase mb-1">Email Alight Motion</label>
+            <input type="email" id="verifEmailInput" placeholder="Masukkan email yang menerima link..." class="w-full p-3 bg-neo-bg brutal-border rounded-xl text-xs font-bold text-neo-border focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 
-        <p class="text-xs font-semibold text-gray-600">
-            Masukkan email akun Alight Motion Anda. Tautan masuk instan akan dikirimkan oleh server resmi ke inbox email Anda.
-        </p>
-
-        <div class="space-y-2">
-            <label class="block text-xs font-black text-neo-border uppercase">EMAIL ALIGHT MOTION</label>
-            <div class="relative">
-                <input type="email" id="sendEmailInput" placeholder="Masukkan Alamat Email Anda..." class="w-full p-3.5 pr-20 bg-neo-bg brutal-border rounded-xl text-xs font-bold text-neo-border focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button onclick="pasteToInput('sendEmailInput')" class="absolute right-2 top-2 px-3 py-1.5 bg-white brutal-border-sm text-xs font-bold rounded-lg shadow-neo-sm">
-                    Paste
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <label class="block text-xs font-black text-neo-border uppercase">MAGIC LINK EMAIL</label>
+                <button onclick="pasteToInput('verifLinkInput')" class="text-[11px] font-extrabold text-blue-600 underline">
+                    <i class="fa-solid fa-paste"></i> Tempel Link
                 </button>
             </div>
+            <input type="text" id="verifLinkInput" placeholder="Tempelkan Link Magic dari Email di sini..." class="w-full p-3 bg-neo-bg brutal-border rounded-xl text-xs font-mono text-neo-border focus:outline-none">
         </div>
 
-        <button onclick="handleSendApi()" id="btnSendApi" class="w-full py-4 bg-neo-accentBlue hover:bg-blue-700 text-white font-black text-base rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
-            <i class="fa-solid fa-paper-plane"></i> Kirim Magic Link Sekarang
-        </button>
-
-        <div class="space-y-1">
-            <div class="flex items-center justify-between text-[11px] font-black text-neo-border uppercase">
-                <span><i class="fa-solid fa-terminal text-blue-600"></i> Terminal Log (Send API)</span>
-                <button onclick="clearTerminal('sendTerminalLog')" class="text-[10px] text-gray-500 hover:text-red-600 underline">Clear Log</button>
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <label class="block text-xs font-black text-neo-border uppercase">Order ID (Unik)</label>
+                <button onclick="generateRandomOrderId()" class="text-[11px] font-extrabold text-blue-600 underline">
+                    <i class="fa-solid fa-rotate"></i> Generate ID Baru
+                </button>
             </div>
-            <div id="sendTerminalLog" class="w-full h-40 bg-neo-terminal brutal-border rounded-xl p-3 font-mono text-[11px] text-green-400 overflow-y-auto terminal-scroll leading-relaxed">
-                <span class="text-gray-500">[SYSTEM] Terminal Siap. Menunggu input Email...</span>
-            </div>
+            <input type="text" id="verifOrderIdInput" readonly class="w-full p-3 bg-neo-softCyan brutal-border rounded-xl text-xs font-black text-neo-border">
         </div>
     </div>
 
-    <!-- SUB TAB 2: VERIFIKASI LINK -->
-    <div id="activation-step2" class="sub-tab-content hidden bg-white brutal-border shadow-neo-lg rounded-3xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b-2 border-neo-border pb-3">
-            <h3 class="font-black text-lg text-neo-border flex items-center gap-2">
-                <i class="fa-solid fa-circle-check text-green-600"></i> Step 2: Verifikasi & Aktifkan
-            </h3>
-            <span class="bg-neo-yellow text-xs font-bold px-2.5 py-1 rounded-lg brutal-border-sm">Auto / Manual OrderID</span>
+    <button onclick="handleVerifApi()" id="btnVerifApi" class="w-full py-4 bg-green-500 hover:bg-green-600 text-neo-border font-black text-base rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
+        <i class="fa-solid fa-circle-check"></i> Eksekusi Verifikasi Premium
+    </button>
+
+    <div class="space-y-1">
+        <div class="flex items-center justify-between text-[11px] font-black text-neo-border uppercase">
+            <span><i class="fa-solid fa-terminal text-green-600"></i> Terminal Log (Verif API)</span>
+            <button onclick="clearTerminal('verifTerminalLog')" class="text-[10px] text-gray-500 hover:text-red-600 underline">Clear Log</button>
         </div>
-
-        <p class="text-xs font-semibold text-gray-600">
-            Salin link verifikasi yang diterima di Email, lalu tempelkan di bawah ini untuk pemrosesan status VIP Premium.
-        </p>
-
-        <div class="space-y-3">
-            <div>
-                <div class="flex justify-between items-center mb-1">
-                    <label class="block text-xs font-black text-neo-border uppercase">MAGIC LINK EMAIL</label>
-                    <button onclick="pasteToInput('verifLinkInput')" class="text-[11px] font-extrabold text-blue-600 underline">
-                        <i class="fa-solid fa-paste"></i> Tempel Link
-                    </button>
-                </div>
-                <input type="text" id="verifLinkInput" placeholder="Tempelkan Link Magic dari Email di sini..." class="w-full p-3 bg-neo-bg brutal-border rounded-xl text-xs font-mono text-neo-border focus:outline-none">
-            </div>
-
-            <div>
-                <div class="flex justify-between items-center mb-1">
-                    <label class="block text-xs font-black text-neo-border uppercase">Order ID (Unik)</label>
-                    <button onclick="generateRandomOrderId()" class="text-[11px] font-extrabold text-blue-600 underline">
-                        <i class="fa-solid fa-rotate"></i> Generate ID Baru
-                    </button>
-                </div>
-                <input type="text" id="verifOrderIdInput" readonly class="w-full p-3 bg-neo-softCyan brutal-border rounded-xl text-xs font-black text-neo-border">
-            </div>
-        </div>
-
-        <button onclick="handleVerifApi()" id="btnVerifApi" class="w-full py-4 bg-green-500 hover:bg-green-600 text-neo-border font-black text-base rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
-            <i class="fa-solid fa-circle-check"></i> Eksekusi Verifikasi Premium
-        </button>
-
-        <div class="space-y-1">
-            <div class="flex items-center justify-between text-[11px] font-black text-neo-border uppercase">
-                <span><i class="fa-solid fa-terminal text-green-600"></i> Terminal Log (Verif API)</span>
-                <button onclick="clearTerminal('verifTerminalLog')" class="text-[10px] text-gray-500 hover:text-red-600 underline">Clear Log</button>
-            </div>
-            <div id="verifTerminalLog" class="w-full h-44 bg-neo-terminal brutal-border rounded-xl p-3 font-mono text-[11px] text-blue-400 overflow-y-auto terminal-scroll leading-relaxed">
-                <span class="text-gray-500">[SYSTEM] Terminal Verifikasi Aktif. Menunggu tautan Magic Link...</span>
-            </div>
+        <div id="verifTerminalLog" class="w-full h-44 bg-neo-terminal brutal-border rounded-xl p-3 font-mono text-[11px] text-blue-400 overflow-y-auto terminal-scroll leading-relaxed">
+            <span class="text-gray-500">[SYSTEM] Terminal Verifikasi Aktif. Menunggu tautan Magic Link...</span>
         </div>
     </div>
-
-    <!-- SUB TAB 3: RIWAYAT -->
-    <div id="activation-history" class="sub-tab-content hidden bg-white brutal-border shadow-neo-lg rounded-3xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b-2 border-neo-border pb-2">
-            <h3 class="font-black text-lg text-neo-border flex items-center gap-2">
-                <i class="fa-solid fa-clock-rotate-left text-purple-600"></i> Log Riwayat Aktivasi
-            </h3>
-            <button onclick="clearHistory()" class="text-xs bg-red-100 hover:bg-red-200 text-red-600 font-bold px-2.5 py-1 rounded-lg brutal-border-sm">
-                Hapus Semua
-            </button>
-        </div>
-
-        <div id="historyList" class="space-y-2 max-h-80 overflow-y-auto pr-1">
-            <!-- Populated via JS -->
-        </div>
-    </div>
-
-    <!-- SUB TAB 4: BULK -->
-    <div id="activation-bulk" class="sub-tab-content hidden bg-white brutal-border shadow-neo-lg rounded-3xl p-5 space-y-4">
-        <div class="border-b-2 border-neo-border pb-2">
-            <h3 class="font-black text-lg text-neo-border flex items-center gap-2">
-                <i class="fa-solid fa-layer-group text-amber-600"></i> Fitur Bulk Batch Send
-            </h3>
-            <p class="text-xs font-semibold text-gray-600 mt-1">Kirim Magic Link ke banyak akun sekaligus (Pisahkan dengan baris baru).</p>
-        </div>
-
-        <textarea id="bulkEmailInput" rows="5" placeholder="email1@gmail.com&#10;email2@gmail.com&#10;email3@gmail.com" class="w-full p-3 bg-neo-bg brutal-border rounded-xl text-xs font-mono"></textarea>
-
-        <button onclick="handleBulkSend()" id="btnBulkSend" class="w-full py-3.5 bg-neo-yellow hover:bg-yellow-400 text-neo-border font-black text-sm rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-2">
-            <i class="fa-solid fa-bolt"></i> Process Bulk Magic Link
-        </button>
-
-        <div id="bulkStatusProgress" class="hidden space-y-2">
-            <div class="w-full bg-gray-200 brutal-border h-4 rounded-full overflow-hidden">
-                <div id="progressBar" class="bg-neo-accentBlue h-full w-0 transition-all duration-300"></div>
-            </div>
-            <p id="bulkProgressText" class="text-xs font-bold text-center">0 / 0 Diproses</p>
-        </div>
-    </div>
-
-</section>
+</div>
