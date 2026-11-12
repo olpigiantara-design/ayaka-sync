@@ -1,0 +1,77 @@
+<div id="sidebarBackdrop" onclick="closeSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+<aside id="sidebar" class="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white brutal-border border-r-0 z-[70] transform translate-x-full transition-transform duration-300 ease-in-out p-5 flex flex-col justify-between shadow-2xl">
+    <div class="space-y-6">
+        <div class="flex items-center justify-between border-b-2 border-neo-border pb-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-neo-yellow brutal-border rounded-xl flex items-center justify-center font-black text-neo-border shadow-neo-sm">
+                    AS
+                </div>
+                <div>
+                    <h3 class="font-black text-base text-neo-border">AYAKA MENU</h3>
+                    <span class="text-[10px] font-bold text-gray-500">System Control v3.0</span>
+                </div>
+            </div>
+            <button onclick="closeSidebar()" class="w-9 h-9 bg-neo-bg hover:bg-gray-200 brutal-border-sm rounded-xl flex items-center justify-center text-neo-border text-lg font-black">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="bg-neo-bg brutal-border rounded-xl p-3 space-y-2">
+            <div class="flex items-center justify-between border-b-2 border-neo-border pb-2">
+                <span class="text-xs font-bold text-gray-600">Login Sebagai:</span>
+                <span id="sidebarUsername" class="text-xs font-black text-blue-600">User</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-600">Paket Aktif:</span>
+                <span id="sidebarPlan" class="text-[10px] bg-neo-yellow px-2 py-0.5 rounded border border-black font-black uppercase">Free</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-600">Sisa Limit:</span>
+                <span id="sidebarLimit" class="text-xs font-black text-green-600">10</span>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <h4 class="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">Pintas Navigasi</h4>
+            <button onclick="switchTab('home'); closeSidebar()" class="w-full p-3 bg-neo-bg hover:bg-neo-softCyan brutal-border rounded-xl font-black text-xs text-left flex items-center justify-between">
+                <span><i class="fa-solid fa-house mr-2 text-blue-600"></i> Home Portal</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+            <button onclick="switchTab('aktivasi'); closeSidebar()" class="w-full p-3 bg-neo-bg hover:bg-neo-softCyan brutal-border rounded-xl font-black text-xs text-left flex items-center justify-between">
+                <span><i class="fa-solid fa-bolt mr-2 text-amber-500"></i> Form Aktivasi VIP</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+            <button onclick="switchTab('paket'); closeSidebar()" class="w-full p-3 bg-neo-bg hover:bg-neo-softCyan brutal-border rounded-xl font-black text-xs text-left flex items-center justify-between">
+                <span><i class="fa-solid fa-crown mr-2 text-yellow-500"></i> Paket & Limit</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+            <button onclick="switchTab('panduan'); closeSidebar()" class="w-full p-3 bg-neo-bg hover:bg-neo-softCyan brutal-border rounded-xl font-black text-xs text-left flex items-center justify-between">
+                <span><i class="fa-solid fa-book-open mr-2 text-green-600"></i> Panduan Lengkap</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+
+        <div class="space-y-2">
+            <h4 class="text-xs font-black text-gray-400 uppercase tracking-wider mb-2">Kanal Resmi & Rest System</h4>
+            <a href="https://whatsapp.com/channel/0029Vb9TSV1JJhzVMkLn6V28" target="_blank" class="w-full p-3 bg-green-100 hover:bg-green-200 brutal-border rounded-xl font-black text-xs text-left flex items-center justify-between text-green-800">
+                <span><i class="fa-brands fa-whatsapp mr-2 text-green-600"></i> Saluran WhatsApp</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
+            <div class="p-3 bg-neo-yellow brutal-border rounded-xl space-y-1">
+                <p class="text-[11px] font-black">Powered by Ayaka Sync</p>
+                <p class="text-[10px] font-bold text-gray-700">Status Gateway: Online Active</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="border-t-2 border-neo-border pt-4 space-y-3">
+        <button onclick="handleLogout()" class="w-full py-2 bg-red-100 hover:bg-red-200 text-red-600 font-black text-xs rounded-xl border-2 border-red-600 transition-all neo-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout Sesi
+        </button>
+        <div class="text-center">
+            <p class="text-[11px] font-extrabold text-neo-border">AYAKA SYNC © 2026</p>
+            <p class="text-[9px] font-bold text-gray-500">All Rights Reserved</p>
+        </div>
+    </div>
+</aside>

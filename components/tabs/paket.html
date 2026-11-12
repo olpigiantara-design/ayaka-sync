@@ -1,0 +1,63 @@
+<section id="tab-paket" class="tab-content space-y-4">
+    <div class="bg-white brutal-border shadow-neo-lg rounded-3xl p-5 space-y-4">
+        <div class="border-b-2 border-neo-border pb-3 text-center">
+            <h2 class="text-2xl font-black text-neo-border flex items-center justify-center gap-2">
+                <i class="fa-solid fa-crown text-amber-500"></i> Pilih Paket Layanan
+            </h2>
+            <p class="text-xs font-semibold text-gray-600 mt-1">Tingkatkan limit dan buka semua fitur premium.</p>
+        </div>
+
+        <div class="space-y-4">
+            <!-- FREE -->
+            <div id="planCard-free" class="bg-neo-bg brutal-border p-4 rounded-2xl relative transition-all">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="font-black text-lg text-neo-border uppercase">PLAN FREE</h3>
+                        <p class="text-xs font-bold text-gray-600">Total Limit: 10</p>
+                    </div>
+                    <span class="bg-white brutal-border-sm text-xs font-black px-2 py-1 rounded">Rp 0</span>
+                </div>
+                <ul class="text-xs font-semibold text-gray-700 space-y-1 mb-3">
+                    <li><i class="fa-solid fa-check text-green-600"></i> Akses Fitur Dasar</li>
+                    <li><i class="fa-solid fa-check text-green-600"></i> Generate Link & Verifikasi</li>
+                </ul>
+                <button onclick="selectPlan('free', 10)" class="w-full py-2 bg-white text-neo-border font-black text-xs rounded-xl brutal-border shadow-neo-sm neo-btn">Pilih Free</button>
+            </div>
+
+            <!-- PRO -->
+            <div id="planCard-pro" class="bg-neo-softCyan brutal-border p-4 rounded-2xl relative transition-all">
+                <div class="absolute -top-3 right-4 bg-blue-600 text-white brutal-border-sm text-[10px] font-black px-2 py-0.5 rounded">RECOMMENDED</div>
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="font-black text-lg text-neo-border uppercase">PLAN PRO</h3>
+                        <p class="text-xs font-bold text-gray-600">Total Limit: 200</p>
+                    </div>
+                    <span class="bg-white brutal-border-sm text-xs font-black px-2 py-1 rounded">Rp 2.000</span>
+                </div>
+                <ul class="text-xs font-semibold text-gray-700 space-y-1 mb-3">
+                    <li><i class="fa-solid fa-check text-green-600"></i> Bebas Gunakan Fitur Pro</li>
+                    <li><i class="fa-solid fa-check text-green-600"></i> Prioritas Server Cepat</li>
+                    <li><i class="fa-solid fa-check text-green-600"></i> Support Bulk Send</li>
+                </ul>
+                <button onclick="selectPlan('pro', 200)" class="w-full py-2 bg-neo-accentBlue text-white font-black text-xs rounded-xl brutal-border shadow-neo-sm neo-btn">Pilih Pro</button>
+            </div>
+
+            <!-- VIP -->
+            <div id="planCard-vip" class="bg-neo-yellow brutal-border p-4 rounded-2xl relative transition-all">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 class="font-black text-lg text-neo-border uppercase">PLAN VIP</h3>
+                        <p class="text-xs font-bold text-gray-600">Total Limit: 1000</p>
+                    </div>
+                    <span class="bg-white brutal-border-sm text-xs font-black px-2 py-1 rounded">Rp 5.000</span>
+                </div>
+                <ul class="text-xs font-semibold text-gray-700 space-y-1 mb-3">
+                    <li><i class="fa-solid fa-check text-green-600"></i> Bebas Gunakan SEMUA Fitur</li>
+                    <li><i class="fa-solid fa-check text-green-600"></i> Limit Maksimal 1000</li>
+                    <li><i class="fa-solid fa-check text-green-600"></i> Akses Tanpa Batas Waktu</li>
+                </ul>
+                <button onclick="selectPlan('vip', 1000)" class="w-full py-2 bg-neo-border text-white font-black text-xs rounded-xl brutal-border shadow-neo-sm neo-btn">Pilih VIP</button>
+            </div>
+        </div>
+    </div>
+</section>

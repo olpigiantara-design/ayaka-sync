@@ -1,0 +1,38 @@
+<header class="w-full max-w-md md:max-w-3xl sticky top-0 z-40 px-4 pt-3 pb-2 bg-[#DBEAFE]/90 backdrop-blur-md">
+    <div class="bg-white brutal-border shadow-neo rounded-2xl p-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-neo-accentBlue rounded-xl brutal-border flex items-center justify-center text-white font-black text-xl shadow-neo-sm">
+                AS
+            </div>
+            <div>
+                <h1 class="font-black text-xl tracking-tight leading-none text-neo-border">AYAKA SYNC</h1>
+                <span class="inline-block mt-1 bg-neo-softCyan brutal-border-sm text-neo-border text-[11px] font-extrabold px-2 py-0.5 rounded-md">
+                    PRO v3.0
+                </span>
+            </div>
+        </div>
+
+        <button id="openSidebarBtn" onclick="openSidebar()" class="w-12 h-12 bg-neo-softCyan hover:bg-neo-lightBlue brutal-border rounded-xl shadow-neo-sm flex items-center justify-center text-neo-border text-2xl neo-btn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="grid grid-cols-4 gap-2 mt-3">
+        <div class="bg-white brutal-border shadow-neo-sm rounded-xl p-2 text-center flex items-center justify-center gap-1.5 font-bold text-xs">
+            <i class="fa-solid fa-battery-three-quarters text-green-600 text-sm"></i>
+            <span id="batteryStatus">85%</span>
+        </div>
+        <div class="bg-white brutal-border shadow-neo-sm rounded-xl p-2 text-center flex items-center justify-center gap-1.5 font-bold text-xs">
+            <i class="fa-regular fa-clock text-blue-600 text-sm"></i>
+            <span id="clockStatus">19:40</span>
+        </div>
+        <div class="bg-white brutal-border shadow-neo-sm rounded-xl p-2 text-center flex items-center justify-center gap-1.5 font-bold text-xs">
+            <i class="fa-regular fa-calendar-days text-amber-600 text-sm"></i>
+            <span id="dateStatus">12 Nov</span>
+        </div>
+        <div class="bg-white brutal-border shadow-neo-sm rounded-xl p-2 text-center flex items-center justify-center gap-1.5 font-bold text-xs">
+            <i class="fa-solid fa-stopwatch text-purple-600 text-sm"></i>
+            <span id="sessionTimer">0m</span>
+        </div>
+    </div>
+</header>

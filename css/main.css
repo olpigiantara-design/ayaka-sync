@@ -1,0 +1,83 @@
+/* ==================================================
+   RESET & BASE
+================================================== */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    touch-action: pan-y;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #DBEAFE;
+    background-image: radial-gradient(#3B82F6 1.2px, transparent 1.2px);
+    background-size: 20px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0F172A;
+}
+
+/* ==================================================
+   BRUTALISM BORDERS
+================================================== */
+.brutal-border {
+    border: 3.5px solid #0F172A;
+}
+
+.brutal-border-sm {
+    border: 2px solid #0F172A;
+}
+
+/* ==================================================
+   TAB SYSTEM
+================================================== */
+.tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ==================================================
+   SCROLLBAR — TERMINAL LOG
+================================================== */
+.terminal-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.terminal-scroll::-webkit-scrollbar-track {
+    background: #0F172A;
+}
+.terminal-scroll::-webkit-scrollbar-thumb {
+    background: #3B82F6;
+    border-radius: 3px;
+}
+
+/* ==================================================
+   NEO BUTTON (PRESS ANIMATION)
+================================================== */
+.neo-btn {
+    transition: all 0.1s ease;
+}
+.neo-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px #0F172A !important;
+}
+
+/* ==================================================
+   DASHBOARD SCROLLBAR
+================================================== */
+.dash-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+.dash-scroll::-webkit-scrollbar-track {
+    background: #EBF4FF;
+}
+.dash-scroll::-webkit-scrollbar-thumb {
+    background: #0F172A;
+    border-radius: 4px;
+}

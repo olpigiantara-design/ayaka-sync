@@ -1,0 +1,34 @@
+/* ==================================================
+   MODAL POP-IN
+================================================== */
+.modal-enter {
+    animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes popIn {
+    from { transform: scale(0.9) translateY(20px); opacity: 0; }
+    to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* ==================================================
+   MARQUEE (SCROLLING PERMANEN)
+================================================== */
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    display: inline-flex;
+    animation: marquee 8s linear infinite;
+    will-change: transform;
+}
+
+/* ==================================================
+   SLIDE-IN PERMANENT (CARD PANDUAN)
+================================================== */
+@keyframes slideInPermanent {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+.permanent-slide {
+    animation: slideInPermanent 0.8s ease-out forwards;
+}

@@ -1,0 +1,155 @@
+<div id="dashboardScreen" class="fixed inset-0 z-[100] bg-[#DBEAFE] flex flex-col items-center justify-start p-4 overflow-y-auto dash-scroll">
+
+    <div class="w-full max-w-md md:max-w-3xl pt-6 pb-24 space-y-5">
+        <!-- Header Logo -->
+        <div class="flex items-center justify-center gap-3 mb-2">
+            <div class="w-14 h-14 bg-neo-accentBlue rounded-2xl brutal-border flex items-center justify-center text-white font-black text-2xl shadow-neo-sm">
+                AS
+            </div>
+            <div>
+                <h1 class="font-black text-2xl tracking-tight leading-none text-neo-border">AYAKA SYNC</h1>
+                <span class="inline-block mt-1 bg-neo-yellow brutal-border-sm text-neo-border text-[11px] font-extrabold px-2 py-0.5 rounded-md">
+                    DASHBOARD v3.0
+                </span>
+            </div>
+        </div>
+
+        <!-- Title Card -->
+        <div class="bg-white brutal-border shadow-neo-lg rounded-3xl p-6 text-center space-y-3">
+            <h2 class="text-2xl font-black text-neo-border leading-tight">Panduan Lengkap <br>Dashboard Ayaka-Sync</h2>
+            <p class="text-sm font-bold text-blue-600">Alight Motion Premium</p>
+            <div class="w-16 h-1 bg-neo-border mx-auto rounded-full"></div>
+            <p class="text-xs font-semibold text-gray-600">Baca panduan di bawah ini, lalu klik tombol Mulai Aktivasi untuk masuk ke sistem.</p>
+        </div>
+
+        <!-- Button Mulai Aktivasi -->
+        <button onclick="startActivationFlow()" class="w-full py-4 bg-green-500 hover:bg-green-600 text-neo-border font-black text-lg rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-3 animate-pulse">
+            <i class="fa-solid fa-rocket"></i> MULAI AKTIVASI
+        </button>
+
+        <!-- CONTENT SECTION -->
+        <div class="space-y-4 text-sm font-semibold text-gray-700 mt-6">
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">1</span>
+                    Apa Itu Dashboard Ini?
+                </h3>
+                <p class="leading-relaxed">Dashboard ini buat ngatur aktivasi Alight Motion Premium. Jadi user gak perlu ribet cari-cari key manual, semua lewat sini. Admin bisa liat siapa aja yang udah aktivasi, masa aktifnya sampe kapan, dan bisa perpanjang / matiin kalo ada yang nakal.</p>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">2</span>
+                    Cara Aktivasi Buat User
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li>Buka dashboard Ayaka-Sync, login pake akun lu</li>
+                    <li>Di halaman utama, pencet tombol <strong>Aktivasi Premium</strong></li>
+                    <li>Masukin kode lisensi / kode aktivasi yang udah lu beli</li>
+                    <li>Pencet <strong>Aktivasi Sekarang</strong></li>
+                    <li>Tunggu sampe muncul notif <strong>"Premium Aktif"</strong></li>
+                    <li>Buka Alight Motion lu, tutup total dulu aplikasinya, terus buka lagi</li>
+                    <li>Cek di Alight Motion &gt; Pengaturan &gt; harusnya udah kebuka semua fitur premiumnya</li>
+                </ul>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">3</span>
+                    Cara Cek Status Premium Lu
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li>Masuk dashboard &gt; Menu <strong>Status Saya</strong></li>
+                    <li>Di situ keliatan: Status: Aktif / Tidak Aktif / Expired, Tanggal aktivasi, Tanggal berakhir, Sisa hari premium lu</li>
+                    <li>Kalo udah expired, fitur premium di Alight Motion bakal kekunci lagi otomatis</li>
+                </ul>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">4</span>
+                    Fitur Yang Kebuka Kalo Udah Premium
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li>Tanpa watermark saat export video</li>
+                    <li>Export kualitas Full HD / 4K</li>
+                    <li>Bisa pake semua efek premium, font premium, dan preset premium</li>
+                    <li>Bisa pake keyframe, easing, dan vector graphic full</li>
+                    <li>Bisa export tanpa iklan</li>
+                    <li>Bisa simpan project tanpa batas</li>
+                </ul>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">5</span>
+                    Cara Perpanjang Premium
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li>Kalo masa aktif lu udah mau habis (tinggal 3 hari), bakal ada notif di dashboard</li>
+                    <li>Pencet <strong>Perpanjang</strong></li>
+                    <li>Masukin kode baru yang lu beli</li>
+                    <li>Premium lu langsung nambah masa aktifnya, gak perlu aktivasi dari nol lagi</li>
+                </ul>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">6</span>
+                    Cara Pindah HP / Ganti Device
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li>Premium itu nyangkut di 1 akun, bukan di 1 HP</li>
+                    <li>Kalo ganti HP, tinggal login lagi di dashboard pake akun yang sama</li>
+                    <li>Terus pencet <strong>Sinkronkan Device</strong></li>
+                    <li>Buka Alight Motion di HP baru, login, premium bakal ikut pindah</li>
+                    <li>Maksimal 1 device aktif dalam 1 waktu. Kalo mau pindah, logout dulu device lama lu</li>
+                </ul>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">7</span>
+                    Kalo Aktivasi Gagal, Lakuin Ini
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li><strong>Kode tidak valid:</strong> Cek lagi kode lu, jangan sampe ada spasi / huruf ketuker (O sama 0, I sama 1)</li>
+                    <li><strong>Kode sudah dipakai:</strong> Berarti kode itu udah dipake akun lain, hubungi admin</li>
+                    <li><strong>Sudah aktif tapi di AM masih free:</strong> Tutup total Alight Motion, hapus dari recent app, buka lagi, terus pencet Sync di dashboard</li>
+                    <li><strong>Server lagi error:</strong> Tunggu 5 menit, jangan spam pencet aktivasi berkali-kali</li>
+                </ul>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">8</span>
+                    Aturan Buat User Premium
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs text-red-600">
+                    <li>1 kode cuma buat 1 akun, gak bisa dishare</li>
+                    <li>Dilarang jual ulang kode / share akun ke orang lain</li>
+                    <li>Kalo ketahuan share akun, admin berhak matiin premium lu tanpa refund</li>
+                    <li>Jangan pake VPN pas aktivasi, nanti device ke-detect beda terus gagal</li>
+                </ul>
+            </div>
+
+            <div class="bg-white brutal-border shadow-neo p-4 rounded-2xl">
+                <h3 class="font-black text-base text-neo-border mb-2 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-neo-accentBlue text-white rounded-lg flex items-center justify-center text-xs">9</span>
+                    Buat Admin
+                </h3>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    <li>Menu <strong>Kelola User</strong> buat liat semua user yang aktif</li>
+                    <li>Bisa matiin premium user yang nakal pake tombol <strong>Nonaktifkan</strong></li>
+                    <li>Bisa nambahin kode baru di menu <strong>Tambah Kode</strong></li>
+                    <li>Bisa liat log aktivasi siapa aja yang baru aktivasi hari ini</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Button -->
+        <button onclick="startActivationFlow()" class="w-full py-4 bg-neo-accentBlue hover:bg-blue-700 text-white font-black text-lg rounded-2xl brutal-border shadow-neo neo-btn flex items-center justify-center gap-3 mt-8">
+            <i class="fa-solid fa-bolt"></i> LANJUT KE AKTIVASI
+        </button>
+    </div>
+</div>

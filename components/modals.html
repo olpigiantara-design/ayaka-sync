@@ -1,0 +1,41 @@
+<!-- CUSTOM MODAL -->
+<div id="customModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[110] flex items-center justify-center p-4 hidden">
+    <div class="bg-white brutal-border shadow-neo-lg rounded-3xl max-w-sm w-full p-6 space-y-4 modal-enter">
+        <div id="modalIconContainer" class="w-14 h-14 bg-neo-yellow brutal-border rounded-2xl flex items-center justify-center text-2xl mx-auto">
+            <i id="modalIcon" class="fa-solid fa-info"></i>
+        </div>
+        <div class="text-center space-y-1">
+            <h3 id="modalTitle" class="font-black text-lg text-neo-border">Informasi</h3>
+            <p id="modalMessage" class="text-xs font-semibold text-gray-600 leading-relaxed"></p>
+        </div>
+        <button onclick="closeModal()" class="w-full py-3 bg-neo-accentBlue hover:bg-blue-700 text-white font-black text-xs rounded-xl brutal-border shadow-neo neo-btn">
+            Tutup / Mengerti
+        </button>
+    </div>
+</div>
+
+<!-- QR PAYMENT MODAL -->
+<div id="paymentModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[120] flex items-center justify-center p-4 hidden">
+    <div class="bg-white brutal-border shadow-neo-lg rounded-3xl max-w-sm w-full p-6 space-y-4 modal-enter">
+        <div class="text-center">
+            <h3 class="font-black text-xl text-neo-border mb-1">Scan QR Pembayaran</h3>
+            <p class="text-xs font-semibold text-gray-600">Selesaikan pembayaran untuk Paket <span id="paymentPlanName" class="font-black text-blue-600">PRO</span>.</p>
+        </div>
+
+        <div class="bg-neo-bg brutal-border p-3 rounded-2xl flex justify-center mx-auto w-full max-w-[250px] shadow-neo-sm">
+            <img src="assets/qris-payment.png" alt="QR Code Pembayaran" class="w-full h-auto object-contain rounded-lg border-2 border-black bg-white">
+        </div>
+
+        <div class="bg-yellow-100 border-2 border-yellow-400 p-3 rounded-lg">
+            <p class="text-[11px] font-bold text-yellow-800 leading-relaxed text-center">
+                <i class="fa-solid fa-circle-info text-base mb-1 block"></i>
+                Jangan lupa kirim bukti pembayaran setelah transaksi ke WhatsApp Admin (Ayaka Store).
+            </p>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+            <button onclick="closePaymentModal()" class="w-full py-3 bg-white text-neo-border font-black text-xs rounded-xl brutal-border shadow-neo-sm neo-btn">Batal</button>
+            <button onclick="confirmPayment()" class="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-black text-xs rounded-xl brutal-border shadow-neo-sm neo-btn">Saya Sudah Bayar</button>
+        </div>
+    </div>
+</div>
