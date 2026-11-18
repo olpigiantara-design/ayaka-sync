@@ -1,48 +1,47 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AYAKA SYNC — Generator Alight Motion</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/reset.css">
-<link rel="stylesheet" href="/css/variables.css">
-<link rel="stylesheet" href="/css/layout.css">
-<link rel="stylesheet" href="/css/components.css">
-<link rel="stylesheet" href="/css/pages.css">
-<link rel="stylesheet" href="/css/utilities.css">
-</head>
-<body>
+<!-- ============================================================ -->
+<!-- ========================== PLAN ============================ -->
+<!-- ============================================================ -->
+<section id="plan" class="page">
+  <div class="hero reveal" style="padding:22px">
+    <span class="tag">💎 Pricing</span>
+    <h2 style="font-size:clamp(22px,6vw,34px)">Pilih <span>Plan</span> Kamu</h2>
+    <p>Setiap plan punya kuota limit generate. Pilih sesuai kebutuhan.</p>
+  </div>
+  <div class="plans reveal d1">
+    <!-- PLAN FREE -->
+    <div class="plan-card" data-plan="free">
+      <div class="plan-head"><h3>Free</h3><span class="badge">Gratis</span></div>
+      <div class="plan-price">Rp 0<small>Tanpa biaya</small></div>
+      <div class="plan-limit"><span>Sisa Limit</span><b data-limit="free">20</b></div>
+      <ul class="plan-features"><li>20x generate</li><li>Antrian normal</li><li>Support dasar</li></ul>
+      <button class="btn sm white" style="width:100%" onclick="setPlan('free')">Gunakan Free</button>
+    </div>
 
-<!-- === LOGIN SCREEN (tambahkan toggle register) === -->
-<div id="loginScreen">
-  <div class="login-box">
-    <h2 id="loginTitle">LOGIN AKUN</h2>
-    <p id="loginSubtitle">Masuk untuk mengakses generator Alight Motion Premium.</p>
-    <div class="field">
-      <label class="label">Alamat Email</label>
-      <input type="email" id="loginEmail" placeholder="user@gmail.com">
+    <!-- PLAN PRO (COMING SOON) -->
+    <div class="plan-card" data-plan="pro" style="opacity: 0.85;">
+      <div class="plan-head"><h3>Pro</h3><span class="badge" style="background:var(--red); color:white; border-color:var(--black);">Segera Hadir</span></div>
+      <div class="plan-price">Rp 10.000<small>Sekali bayar</small></div>
+      <div class="plan-limit"><span>Sisa Limit</span><b data-limit="pro">1000</b></div>
+      <ul class="plan-features"><li>1000x generate</li><li>Prioritas cepat</li><li>Support prioritas</li><li style="color:var(--blue); font-weight:700;">Dapat gunakan Bulk Akun</li></ul>
+      <button class="btn sm" style="width:100%; background:#cccccc; cursor:not-allowed; color:#666; box-shadow:0 0 0; transform:none;" disabled>⏳ COMING SOON</button>
     </div>
-    <div class="field">
-      <label class="label">Password</label>
-      <input type="password" id="loginPassword" placeholder="••••••••">
-    </div>
-    <button class="btn blue" id="btnAuthSubmit">🔑 Masuk Sekarang</button>
-    <div style="text-align:center; margin-top:15px; font-size:11px; opacity:0.6; font-weight:600;">
-      <span id="loginSwitchText">Belum punya akun? </span>
-      <a href="#" id="btnAuthSwitch" style="color:var(--blue); text-decoration:underline;">Daftar sekarang</a>
+
+    <!-- PLAN VIP (COMING SOON) -->
+    <div class="plan-card" data-plan="vip" style="opacity: 0.85;">
+      <div class="plan-head"><h3>VIP</h3><span class="badge" style="background:var(--red); color:white; border-color:var(--black);">Segera Hadir</span></div>
+      <div class="plan-price">Rp 15.000<small>Sekali bayar</small></div>
+      <div class="plan-limit"><span>Sisa Limit</span><b data-limit="vip">2000</b></div>
+      <ul class="plan-features"><li>2000x generate</li><li>Prioritas tertinggi</li><li>Support 24 jam</li><li style="color:var(--blue); font-weight:700;">Dapat gunakan Bulk Akun</li></ul>
+      <button class="btn sm" style="width:100%; background:#cccccc; cursor:not-allowed; color:#666; box-shadow:0 0 0; transform:none;" disabled>⏳ COMING SOON</button>
     </div>
   </div>
-</div>
-
-<!-- ⬇⬇ SALIN SELURUH BODY ASLI DARI SINI SAMPAI BAWAH ⬇⬇ -->
-<!-- (semua section: sidebar, topbar, pages, nav, modal, toast) -->
-
-<!-- ⬆⬆ SAMPAI SINI ⬆⬆ -->
-
-<!-- === SCRIPT MODUL === -->
-<script type="module" src="/js/main.js"></script>
-</body>
-</html>
+  
+  <div class="card yellow reveal d2" style="margin-top:18px">
+    <div class="section-title"><h3>📊 Statistik Kamu</h3><div class="bar"></div></div>
+    <div class="kv"><span>Plan Aktif</span><span id="statPlan">FREE</span></div>
+    <div class="kv"><span>Total Generate Sukses</span><span id="statUsed">0</span></div>
+    <div class="kv"><span>Sisa Limit Plan Aktif</span><span id="statLeft">20</span></div>
+    <button class="btn sm white mt" style="width:100%" onclick="resetStats()">♻️ Reset Statistik</button>
+  </div>
+  <div class="notice reveal d3"><span class="ic">⚠️</span><span>Limit berkurang <b>1 poin</b> setiap kali kamu berhasil mengirim link premium dari menu Aktivasi.</span></div>
+</section>
