@@ -17,7 +17,6 @@ export const CONFIG = {
   // ==========================================
   API_BASE: '/api',
   
-  // Endpoint mapping (mempermudah pemanggilan di api.js)
   ENDPOINTS: {
     AUTH: {
       LOGIN: '/auth/login',
@@ -48,7 +47,6 @@ export const CONFIG = {
     THEME: 'am_theme',
     HISTORY_CACHE: 'am_history_cache'
   },
-  // Alias (backward compatibility dengan kode api.js sebelumnya)
   TOKEN_KEY: 'am_token',
   ACTIVE_EMAIL_KEY: 'am_active_email',
 
@@ -63,7 +61,8 @@ export const CONFIG = {
       priceString: '0',
       badge: 'Gratis',
       color: 'var(--black)',
-      limit: 20
+      limit: 20,
+      isAvailable: true // BISA DIBELI
     },
     pro: {
       id: 'pro',
@@ -72,7 +71,8 @@ export const CONFIG = {
       priceString: '10.000',
       badge: 'Populer',
       color: 'var(--blue)',
-      limit: 1000
+      limit: 1000,
+      isAvailable: false // COMING SOON
     },
     vip: {
       id: 'vip',
@@ -81,7 +81,8 @@ export const CONFIG = {
       priceString: '15.000',
       badge: 'Terbaik',
       color: 'var(--yellow-deep)',
-      limit: 2000
+      limit: 2000,
+      isAvailable: false // COMING SOON
     }
   },
 
@@ -98,15 +99,15 @@ export const CONFIG = {
   // 6. UI & BEHAVIOR SETTINGS
   // ==========================================
   UI: {
-    TOAST_DURATION: 3000,          // Durasi notifikasi muncul (ms)
-    TERMINAL_MAX_LINES: 150,       // Maksimal baris log di terminal
-    REVEAL_DELAY_BASE: 60,         // Delay animasi pertama (ms)
-    REVEAL_DELAY_STEP: 70,         // Jarak antar item animasi (ms)
-    PAYMENT_SIMULATION_DELAY: 8000 // Simulasi sukses bayar (8 detik)
+    TOAST_DURATION: 3000,
+    TERMINAL_MAX_LINES: 150,
+    REVEAL_DELAY_BASE: 60,
+    REVEAL_DELAY_STEP: 70,
+    PAYMENT_SIMULATION_DELAY: 8000 
   },
 
   // ==========================================
-  // 7. EXTERNAL LINKS (Ganti dengan punya kamu)
+  // 7. EXTERNAL LINKS
   // ==========================================
   LINKS: {
     TELEGRAM_ADMIN: 'https://t.me/username_admin_kamu',
