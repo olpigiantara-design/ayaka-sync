@@ -1,4 +1,4 @@
-import { setupLoginUI, checkSession, logout } from './auth.js';
+import { setupLoginUI, checkSession, logout, refreshProfile } from './auth.js';
 import { setupNav, toggleSidebar } from './ui/navigation.js';
 import { setupStatusBar } from './ui/status-bar.js';
 import { setupAccordion } from './ui/accordion.js';
@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupPlansPage();
 
   if (checkSession()) {
+    // Jika sudah login, ambil data profil terbaru
+    await refreshProfile();
     await refreshPlans();
     await refreshHistory();
   }
