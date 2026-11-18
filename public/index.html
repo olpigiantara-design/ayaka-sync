@@ -1,47 +1,485 @@
-<!-- ============================================================ -->
-<!-- ========================== PLAN ============================ -->
-<!-- ============================================================ -->
-<section id="plan" class="page">
-  <div class="hero reveal" style="padding:22px">
-    <span class="tag">💎 Pricing</span>
-    <h2 style="font-size:clamp(22px,6vw,34px)">Pilih <span>Plan</span> Kamu</h2>
-    <p>Setiap plan punya kuota limit generate. Pilih sesuai kebutuhan.</p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AYAKA SYNC — Generator Alight Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<!-- HUBUNGKAN KE FILE CSS MODULAR -->
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/variables.css">
+<link rel="stylesheet" href="/css/layout.css">
+<link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="/css/pages.css">
+<link rel="stylesheet" href="/css/utilities.css">
+</head>
+<body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h2 id="loginTitle">LOGIN AKUN</h2>
+    <p id="loginSubtitle">Masuk untuk mengakses generator Alight Motion Premium.</p>
+    <div class="field">
+      <label class="label">Alamat Email</label>
+      <input type="email" id="loginEmail" placeholder="user@gmail.com" autocomplete="off">
+    </div>
+    <div class="field">
+      <label class="label">Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••">
+    </div>
+    <button class="btn blue" id="btnAuthSubmit">🔑 Masuk Sekarang</button>
+    <div style="text-align:center; margin-top:15px; font-size:11px; opacity:0.6; font-weight:600;">
+      <span id="loginSwitchText">Belum punya akun? </span>
+      <a href="#" id="btnAuthSwitch" style="color:var(--blue); text-decoration:underline;">Daftar sekarang</a>
+    </div>
   </div>
-  <div class="plans reveal d1">
-    <!-- PLAN FREE -->
-    <div class="plan-card" data-plan="free">
-      <div class="plan-head"><h3>Free</h3><span class="badge">Gratis</span></div>
-      <div class="plan-price">Rp 0<small>Tanpa biaya</small></div>
-      <div class="plan-limit"><span>Sisa Limit</span><b data-limit="free">20</b></div>
-      <ul class="plan-features"><li>20x generate</li><li>Antrian normal</li><li>Support dasar</li></ul>
-      <button class="btn sm white" style="width:100%" onclick="setPlan('free')">Gunakan Free</button>
+</div>
+
+<!-- ============ SIDEBAR ============ -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>MENU</h2>
+    <button class="sidebar-close" onclick="toggleSidebar()">✖</button>
+  </div>
+  <div class="sidebar-nav">
+    <a href="#" class="side-link" data-target="home"><span class="icon">🏠</span> Home</a>
+    <a href="#" class="side-link active" data-target="dashboard"><span class="icon">📊</span> Dashboard</a>
+    <a href="#" class="side-link" data-target="aktivasi"><span class="icon">🔑</span> Aktivasi</a>
+    <a href="#" class="side-link" data-target="bulk"><span class="icon">📦</span> Bulk Akun</a>
+    <a href="#" class="side-link" data-target="riwayat"><span class="icon">📜</span> Riwayat Akun</a>
+    <a href="#" class="side-link" data-target="plan"><span class="icon">💎</span> Plan Premium</a>
+    <a href="#" class="side-link" data-target="chatai"><span class="icon">🤖</span> Chat AI (Ayaka)</a>
+    <a href="#" class="side-link" data-target="panduan"><span class="icon">📖</span> Panduan</a>
+    <a href="#" class="side-link" data-target="profil"><span class="icon">👤</span> Profil Saya</a>
+  </div>
+</aside>
+
+<!-- WRAPPER UTAMA -->
+<div class="wrap" id="mainApp">
+
+  <!-- ============ HEADER ============ -->
+  <header class="topbar">
+    <div class="topbar-top">
+      <div class="brand">
+        <div class="logo">AS</div>
+        <div class="brand-txt">
+          <h1>AYAKA SYNC</h1>
+          <p>Generator Alight Motion</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="status-pill"><span class="dot"></span> Online</div>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      </div>
+    </div>
+    <div class="status-container">
+      <div class="status-box" id="sb-time">00:00:00</div>
+      <div class="status-box" id="sb-date">01 Jan 2026</div>
+      <div class="status-box" id="sb-battery">🔋 100%</div>
+      <div class="status-box" id="sb-uptime">00:00:00</div>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- ========================= HOME ============================= -->
+  <!-- ============================================================ -->
+  <section id="home" class="page">
+    <div class="hero reveal">
+      <span class="tag">⚡ Instant Delivery</span>
+      <h2>Alight Motion <span>Premium</span><br>Tanpa Ribet</h2>
+      <p>Masuk ke menu Aktivasi, kirim magic link ke email kamu, lalu verifikasi. Proses cepat, aman, dan otomatis.</p>
     </div>
 
-    <!-- PLAN PRO (COMING SOON) -->
-    <div class="plan-card" data-plan="pro" style="opacity: 0.85;">
-      <div class="plan-head"><h3>Pro</h3><span class="badge" style="background:var(--red); color:white; border-color:var(--black);">Segera Hadir</span></div>
-      <div class="plan-price">Rp 10.000<small>Sekali bayar</small></div>
-      <div class="plan-limit"><span>Sisa Limit</span><b data-limit="pro">1000</b></div>
-      <ul class="plan-features"><li>1000x generate</li><li>Prioritas cepat</li><li>Support prioritas</li><li style="color:var(--blue); font-weight:700;">Dapat gunakan Bulk Akun</li></ul>
-      <button class="btn sm" style="width:100%; background:#cccccc; cursor:not-allowed; color:#666; box-shadow:0 0 0; transform:none;" disabled>⏳ COMING SOON</button>
+    <div class="grid2">
+      <div class="card yellow reveal d1">
+        <h3 style="font-size:14px;margin-bottom:10px">📦 Yang Kamu Dapat</h3>
+        <div class="kv"><span>Premium Alight Motion</span><span>✓</span></div>
+        <div class="kv"><span>Tanpa Watermark</span><span>✓</span></div>
+        <div class="kv"><span>Semua Efek Terbuka</span><span>✓</span></div>
+        <div class="kv"><span>Export 4K</span><span>✓</span></div>
+      </div>
+
+      <div class="card reveal d2">
+        <h3 style="font-size:14px;margin-bottom:10px">🔧 Cara Kerja Singkat</h3>
+        <div class="step" style="padding:8px 0;border:none">
+          <div class="step-num" style="width:28px;height:28px;font-size:12px">1</div>
+          <div class="step-body"><p style="font-size:11.5px">Buka menu Aktivasi.</p></div>
+        </div>
+        <div class="step" style="padding:8px 0;border:none">
+          <div class="step-num" style="width:28px;height:28px;font-size:12px">2</div>
+          <div class="step-body"><p style="font-size:11.5px">Kirim & verifikasi link.</p></div>
+        </div>
+        <div class="step" style="padding:8px 0;border:none">
+          <div class="step-num" style="width:28px;height:28px;font-size:12px">3</div>
+          <div class="step-body"><p style="font-size:11.5px">Premium aktif otomatis!</p></div>
+        </div>
+      </div>
     </div>
 
-    <!-- PLAN VIP (COMING SOON) -->
-    <div class="plan-card" data-plan="vip" style="opacity: 0.85;">
-      <div class="plan-head"><h3>VIP</h3><span class="badge" style="background:var(--red); color:white; border-color:var(--black);">Segera Hadir</span></div>
-      <div class="plan-price">Rp 15.000<small>Sekali bayar</small></div>
-      <div class="plan-limit"><span>Sisa Limit</span><b data-limit="vip">2000</b></div>
-      <ul class="plan-features"><li>2000x generate</li><li>Prioritas tertinggi</li><li>Support 24 jam</li><li style="color:var(--blue); font-weight:700;">Dapat gunakan Bulk Akun</li></ul>
-      <button class="btn sm" style="width:100%; background:#cccccc; cursor:not-allowed; color:#666; box-shadow:0 0 0; transform:none;" disabled>⏳ COMING SOON</button>
+    <div class="card reveal d1" style="margin-bottom:18px">
+      <div class="section-title">
+        <h3>🎯 Tutorial Aktivasi Lengkap (10 Langkah)</h3>
+        <div class="bar"></div>
+      </div>
+      <div class="notice" style="margin-bottom:16px">
+        <span class="ic">📌</span>
+        <span>Ikuti urutan dari <b>nomor 1 sampai 10</b>. Jangan skip langkah apapun ya, biar premium kamu langsung aktif tanpa error!</span>
+      </div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Login ke Website Ayaka Sync</h4>
+          <p>Buka halaman login Ayaka Sync. Isi <b>email aktif</b> kamu dan <b>password</b> (password bebas, asal kamu ingat). Klik tombol <code>🔑 Masuk Sekarang</code>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Masuk ke Menu Aktivasi</h4>
+          <p>Dari Dashboard atau menu navigasi bawah, klik menu <b>Aktivasi</b> (ikon 🔑). Kamu akan melihat 2 tab utama: <code>1 • Kirim Link</code> dan <code>2 • Verifikasi</code>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Masukkan Email di Tab Kirim Link</h4>
+          <p>Isi kolom <b>Alamat Gmail</b> dengan email yang aktif. Contoh: <code>namakamu@gmail.com</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Klik Tombol Kirim Magic Link</h4>
+          <p>Tekan tombol biru <code>✈️ Kirim Magic Link</code>. Sistem akan memproses dan mengirim link verifikasi ke email kamu.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Pantau Terminal Log</h4>
+          <p>Lihat kotak hitam <b>Terminal Log</b> di bawah. Kalau muncul tulisan hijau <code>Sukses! Link terkirim...</code>, berarti link sudah dikirim.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <h4>Buka Email & Cari Magic Link</h4>
+          <p>Buka aplikasi Gmail. Cari email dari Alight Motion dengan judul <b>"Sign in to Alight Motion"</b>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <h4>Copy Link Verifikasi</h4>
+          <p>Tekan lama link tersebut, lalu pilih <b>"Salin Tautan"</b> / <b>"Copy Link Address"</b>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <h4>Pindah ke Tab Verifikasi</h4>
+          <p>Balik ke website Ayaka Sync. Klik tab <b>2 • Verifikasi</b>. Tempel link tadi di kotak yang disediakan.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">9</div>
+        <div class="step-body">
+          <h4>Atur Order ID (Opsional)</h4>
+          <p>Pilih mode Order ID: <b>🎲 Otomatis</b> atau <b>✏️ Manual</b>. Kalau bingung, pakai Otomatis aja.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">10</div>
+        <div class="step-body">
+          <h4>Klik Aktivasi & Cek Hasil</h4>
+          <p>Tekan tombol <code>Aktivasi Sekarang</code>. Jika Terminal Log menampilkan <b style="color:var(--green)">hijau "Premium Berhasil Diaktifkan!"</b>, buka aplikasi Alight Motion dan login.</p>
+        </div>
+      </div>
     </div>
+
+    <div class="notice reveal d3">
+      <span class="ic">💡</span>
+      <span>Belum tahu cara pakainya? Buka menu <b>Panduan</b> di navigasi bawah untuk tutorial lengkap langkah demi langkah, atau tanya langsung ke <b>Chat AI (Ayaka)</b>.</span>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ======================== DASHBOARD ========================= -->
+  <!-- ============================================================ -->
+  <section id="dashboard" class="page active">
+    <div class="dash-bg reveal">
+      <div class="dash-hero-badges">
+        <span class="dash-badge blue">LOGIN TANPA PASSWORD • LINK KHUSUS • AKTIF OTOMATIS</span>
+      </div>
+      <h1 class="dash-title">AYAKA SYNC<br>BUKA SEMUA<br><span>FITUR PRO</span></h1>
+      <p class="dash-desc">Satu tempat buat ngatur akun editing lu. Masuk pake email, verifikasi sekali, terus semua akses premium langsung nyambung ke dashboard lu. Gak pake password, gak pake nunggu admin.</p>
+      <div class="dash-btn-group">
+        <button class="btn" onclick="goTo('aktivasi')">MASUK KE DASHBOARD →</button>
+        <button class="btn white" onclick="goTo('plan')">COBA AKSES PREMIUM</button>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <span class="dash-badge" style="background:var(--yellow); color:var(--black);">👑 FULL UNLOCK</span>
+        <h2 class="dash-section-title">BUKAN CUMA PREMIUM,<br>TAPI BENERAN BEBAS NGEDIT</h2>
+        <p style="font-size:13px; font-weight:600; margin-bottom:20px;">Ayaka Sync ngebuka batasan yang selama ini ngalangin ide lu. Mau export, mau efek, mau preset, semuanya jalan.</p>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-grid-item"><h4>1. Video Bersih, Tanpa Logo</h4><p>Hasil export lu udah gak ada lagi tulisan ganggu. Tinggal upload, langsung keliatan kayak buatan studio.</p></div>
+        <div class="dash-grid-item"><h4>2. Kualitas Sampai 4K 60FPS</h4><p>Buat lu yang main di Shorts, Reels, atau AMV, resolusi tinggi itu wajib. Di sini udah kebuka semua.</p></div>
+        <div class="dash-grid-item"><h4>3. Efek & Filter Lengkap</h4><p>Semua koleksi efek yang tadinya gembok, sekarang bisa lu utak-atik sepuasnya. Tinggal mix and match.</p></div>
+        <div class="dash-grid-item"><h4>4. Koleksi Font & Shape Eksklusif</h4><p>Gak perlu lagi download font dari luar. Semua udah disediain di dalam, tinggal pilih dan tempel.</p></div>
+        <div class="dash-grid-item"><h4>5. Gerakan Lebih Halus</h4><p>Setting keyframe jadi lebih detail. Transisi lu bisa dibikin lembut kayak editor pro, bukan lagi patah-patah.</p></div>
+        <div class="dash-grid-item"><h4>6. Project Nyambung Kemana-mana</h4><p>Pindah HP? Ganti device? Project lu tetep nyangkut di akun lu. Tinggal login lagi, langsung lanjut ngedit.</p></div>
+      </div>
+      <h2 class="dash-section-title" style="margin-top:40px;">3 LANGKAH, LANGSUNG JALAN</h2>
+      <div class="card">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><h4>DAFTAR PAKE EMAIL</h4><p>Tulis email yang masih aktif. Itu aja yang dibutuhin buat mulai. Gak ada form panjang.</p></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><h4>BUKA LINK DARI EMAIL</h4><p>Kita kirim link khusus ke inbox lu. Klik sekali, akun lu langsung terverifikasi. Link-nya cuma hidup 10 menit ya.</p></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><h4>DASHBOARD LU KEBUKA</h4><p>Begitu masuk, lu bakal liat status akun lu udah berubah. Dari situ lu bebas explore semua fitur.</p></div></div>
+      </div>
+      <div class="closing-box">
+        <h3>UDAH SIAP NAIK LEVEL?<br>MULAI DARI SINI.</h3>
+        <p>Stop ngedit dengan fitur setengah-setengah. Gabung sama ribuan editor lain yang udah ngerasain bedanya pake Ayaka Sync.</p>
+        <button class="btn" onclick="goTo('aktivasi')">MULAI SEKARANG →</button>
+        <div style="font-size:10px; margin-top:15px; opacity:0.6;">© 2026 Ayaka Sync • Dibikin buat editor Indonesia yang pengen karyanya naik kelas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ======================= AKTIVASI =========================== -->
+  <!-- ============================================================ -->
+  <section id="aktivasi" class="page">
+    <div class="hero reveal" style="padding:22px">
+      <span class="tag">🔑 Proses Cepat</span>
+      <h2 style="font-size:clamp(22px,6vw,34px)">Kirim & <span>Aktivasi</span></h2>
+      <p>Gunakan tab di bawah untuk mengirim link dan melakukan verifikasi.</p>
+    </div>
+    <div class="card reveal d1">
+      <div class="tab-header">
+        <button class="tab-btn active" id="tabSendBtn">1 • Kirim Link</button>
+        <button class="tab-btn" id="tabVerifBtn">2 • Verifikasi</button>
+      </div>
+      <div class="tab-pane active" id="paneSend">
+        <div class="field"><label class="label">Alamat Gmail</label><input type="email" id="homeEmail" placeholder="user@gmail.com" autocomplete="off"></div>
+        <button class="btn blue" id="btnSend"><span class="spin"></span><span class="btn-txt">✈️ Kirim Magic Link</span></button>
+      </div>
+      <div class="tab-pane" id="paneVerif">
+        <div class="field"><label class="label">Tempel Link Verifikasi (Harus Lengkap)</label><textarea id="verifLink" placeholder="https://alight-creative.firebaseapp.com/__/auth/links?link=..."></textarea></div>
+        <button class="btn blue" id="btnVerif" style="margin-bottom:20px;"><span class="spin" style="border-top-color:#fff;border-color:rgba(255,255,255,.3)"></span><span class="btn-txt">Aktivasi Sekarang</span></button>
+        <div class="field"><label class="label">Atur Mode Order ID</label><div class="mode-toggle"><button class="mode-btn on" data-mode="auto" id="modeAuto">🎲 Otomatis</button><button class="mode-btn" data-mode="manual" id="modeManual">✏️ Manual</button></div></div>
+        <div class="field" id="autoOrderBox"><label class="label">Order ID (Otomatis)</label><div style="display:flex;gap:10px;flex-wrap:wrap"><input type="text" id="autoOrder" readonly style="flex:1;min-width:180px;font-family:'Space Grotesk';font-weight:700;font-size:12px"><button class="btn sm white" id="btnRegen" style="flex-shrink:0;padding:10px">🔄</button></div></div>
+        <div class="field" id="manualOrderBox" style="display:none"><label class="label">Order ID (Manual)</label><input type="text" id="manualOrder" placeholder="GPA.1234-5678-9012-34567" autocomplete="off"></div>
+      </div>
+    </div>
+    <div class="terminal reveal d2" id="terminal"><div class="terminal-inner" id="terminalContent"><div class="log-line"><span class="log-time">[System]</span> <span class="log-info">Terminal initialized. Waiting for input...</span></div></div></div>
+    <div class="card dark reveal d3">
+      <div class="section-title"><h3 style="color:var(--yellow)">📋 Ringkasan Data</h3><div class="bar" style="background:var(--yellow)"></div></div>
+      <div class="kv" style="border-color:rgba(255,255,255,.2)"><span>Email</span><span id="sumEmail">—</span></div>
+      <div class="kv" style="border-color:rgba(255,255,255,.2)"><span>Order ID</span><span id="sumOrder">—</span></div>
+      <div class="kv" style="border-color:rgba(255,255,255,.2)"><span>Plan Aktif</span><span id="sumPlan">FREE</span></div>
+      <div class="kv" style="border-color:rgba(255,255,255,.2)"><span>Status</span><span id="sumStatus">Menunggu</span></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ======================== BULK PAGE ========================= -->
+  <!-- ============================================================ -->
+  <section id="bulk" class="page">
+    <div class="hero reveal" style="padding:22px">
+      <span class="tag">📦 Massal</span>
+      <h2 style="font-size:clamp(22px,6vw,34px)">Bulk <span>Akun</span></h2>
+      <p>Generate banyak akun premium sekaligus. Fitur ini khusus untuk pengguna Plan Pro & VIP.</p>
+    </div>
+    <div class="card reveal d1 dash-bg" style="padding: 24px;">
+      <label class="label" style="font-size: 13px; color: var(--black); opacity: 1;">JUMLAH AKUN (1–100)</label>
+      <div class="stepper-container">
+        <button class="step-btn" onclick="updateBulkAmount(-1)">-</button>
+        <input type="number" id="bulkAmount" value="1" min="1" max="100" readonly>
+        <button class="step-btn" onclick="updateBulkAmount(1)">+</button>
+      </div>
+      <div class="bulk-hint" id="bulkLimitHint">Memakai 1 limit.</div>
+      <label class="label" style="font-size: 13px; color: var(--black); opacity: 1;">PENYEDIA EMAIL SEMENTARA</label>
+      <select class="bulk-provider-select" id="bulkProvider"><option value="akunlama.com">akunlama.com</option><option value="cempreng.me">cempreng.me</option></select>
+      <div class="bulk-hint" style="margin-top: 10px;">Inbox tiap akun tersedia lewat link inbox di hasil.</div>
+      <button class="btn" id="btnProcessBulk" style="margin-top: 10px; padding: 18px; font-size: 15px;"><span class="spin"></span><span class="btn-txt">⚡ GENERATE SEKARANG</span></button>
+      <div id="bulkResult" style="display:none; margin-top: 20px; text-align: left; max-height: 300px; overflow-y: auto; border: 3px solid var(--black); padding: 14px; border-radius: 10px; background: var(--white); box-shadow: var(--shadow-sm);"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ======================== RIWAYAT =========================== -->
+  <!-- ============================================================ -->
+  <section id="riwayat" class="page">
+    <div class="hero reveal" style="padding:22px">
+      <span class="tag">📜 Log Aktivitas</span>
+      <h2 style="font-size:clamp(22px,6vw,34px)">Riwayat <span>Akun</span></h2>
+      <p>Daftar akun yang berhasil diaktivasi secara real-time. Email disensor untuk keamanan.</p>
+    </div>
+    <div class="card reveal d1">
+      <div class="section-title"><h3>📦 Daftar Akun Premium</h3><div class="bar"></div></div>
+      <div id="historyList"><div style="text-align:center; font-size:12px; font-weight:600; opacity:0.5; padding:20px 0;">Belum ada riwayat aktivasi.</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ========================== PLAN ============================ -->
+  <!-- ============================================================ -->
+  <section id="plan" class="page">
+    <div class="hero reveal" style="padding:22px">
+      <span class="tag">💎 Pricing</span>
+      <h2 style="font-size:clamp(22px,6vw,34px)">Pilih <span>Plan</span> Kamu</h2>
+      <p>Setiap plan punya kuota limit generate. Pilih sesuai kebutuhan.</p>
+    </div>
+    <div class="plans reveal d1">
+      <!-- PLAN FREE -->
+      <div class="plan-card" data-plan="free">
+        <div class="plan-head"><h3>Free</h3><span class="badge">Gratis</span></div>
+        <div class="plan-price">Rp 0<small>Tanpa biaya</small></div>
+        <div class="plan-limit"><span>Sisa Limit</span><b data-limit="free">20</b></div>
+        <ul class="plan-features"><li>20x generate</li><li>Antrian normal</li><li>Support dasar</li></ul>
+        <button class="btn sm white" style="width:100%">Gunakan Free</button>
+      </div>
+
+      <!-- PLAN PRO (COMING SOON) -->
+      <div class="plan-card" data-plan="pro" style="opacity: 0.85;">
+        <div class="plan-head"><h3>Pro</h3><span class="badge" style="background:var(--red); color:white; border-color:var(--black);">Segera Hadir</span></div>
+        <div class="plan-price">Rp 10.000<small>Sekali bayar</small></div>
+        <div class="plan-limit"><span>Sisa Limit</span><b data-limit="pro">1000</b></div>
+        <ul class="plan-features"><li>1000x generate</li><li>Prioritas cepat</li><li>Support prioritas</li><li style="color:var(--blue); font-weight:700;">Dapat gunakan Bulk Akun</li></ul>
+        <button class="btn sm" style="width:100%; background:#cccccc; cursor:not-allowed; color:#666; box-shadow:0 0 0; transform:none;" disabled>⏳ COMING SOON</button>
+      </div>
+
+      <!-- PLAN VIP (COMING SOON) -->
+      <div class="plan-card" data-plan="vip" style="opacity: 0.85;">
+        <div class="plan-head"><h3>VIP</h3><span class="badge" style="background:var(--red); color:white; border-color:var(--black);">Segera Hadir</span></div>
+        <div class="plan-price">Rp 15.000<small>Sekali bayar</small></div>
+        <div class="plan-limit"><span>Sisa Limit</span><b data-limit="vip">2000</b></div>
+        <ul class="plan-features"><li>2000x generate</li><li>Prioritas tertinggi</li><li>Support 24 jam</li><li style="color:var(--blue); font-weight:700;">Dapat gunakan Bulk Akun</li></ul>
+        <button class="btn sm" style="width:100%; background:#cccccc; cursor:not-allowed; color:#666; box-shadow:0 0 0; transform:none;" disabled>⏳ COMING SOON</button>
+      </div>
+    </div>
+    
+    <div class="card yellow reveal d2" style="margin-top:18px">
+      <div class="section-title"><h3>📊 Statistik Kamu</h3><div class="bar"></div></div>
+      <div class="kv"><span>Plan Aktif</span><span id="statPlan">FREE</span></div>
+      <div class="kv"><span>Total Generate Sukses</span><span id="statUsed">0</span></div>
+      <div class="kv"><span>Sisa Limit Plan Aktif</span><span id="statLeft">20</span></div>
+      <button class="btn sm white mt" style="width:100%" id="btnResetStats">♻️ Reset Statistik</button>
+    </div>
+    <div class="notice reveal d3"><span class="ic">⚠️</span><span>Limit berkurang <b>1 poin</b> setiap kali kamu berhasil mengirim link premium dari menu Aktivasi.</span></div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ======================== CHAT AI =========================== -->
+  <!-- ============================================================ -->
+  <section id="chatai" class="page">
+    <div class="hero reveal" style="padding:22px">
+      <span class="tag">🤖 Asisten AI</span>
+      <h2 style="font-size:clamp(22px,6vw,34px)">Chat <span>Ayaka</span></h2>
+      <p>Tanya apa aja soal aktivasi, kendala link, atau benefit premium. Ayaka siap bantu!</p>
+    </div>
+    <div class="chat-container reveal d1">
+      <div class="chat-header"><span class="dot"></span> Ayaka AI Online</div>
+      <div class="chat-messages" id="chatMessages"><div class="chat-bubble ai">Halo, ada yang bisa Ayaka bantu hari ini? Mau aktivasi akun ke premium, cek status, atau ada kendala?</div></div>
+      <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Ketik pesan..."><button id="btnSendChat">➤</button></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ========================= PANDUAN ========================== -->
+  <!-- ============================================================ -->
+  <section id="panduan" class="page">
+    <div class="hero reveal" style="padding:22px">
+      <span class="tag">📖 Dokumentasi</span>
+      <h2 style="font-size:clamp(22px,6vw,34px)">Panduan <span>Lengkap</span></h2>
+      <p>Ikuti langkah di bawah ini dengan benar supaya premium berhasil terpasang di akun Alight Motion kamu.</p>
+    </div>
+    <div class="card reveal d1">
+      <div class="section-title"><h3>🧭 Langkah Demi Langkah</h3><div class="bar"></div></div>
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Buka Tab Kirim Link</h4><p>Di menu Aktivasi, pastikan kamu berada di tab <b>1 • Kirim Link</b>. Isi email aktif kamu.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Kirim Magic Link</h4><p>Tekan tombol <code>Kirim Magic Link</code>. Sistem akan memproses dan mengirim link ke email kamu.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Cek Inbox Email</h4><p>Tunggu 1–3 menit, lalu buka email kamu dan copy link verifikasi yang dikirim.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h4>Pindah ke Tab Verifikasi</h4><p>Klik tab <b>2 • Verifikasi</b>. Tempel link dari email. Email kamu akan otomatis terdeteksi dari langkah sebelumnya.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h4>Atur Order ID & Aktivasi</h4><p>Pilih mode Order ID (Otomatis/Manual), lalu tekan <code>Aktivasi Sekarang</code>. Pantau prosesnya di Terminal Log.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div class="step-body"><h4>Login ke Alight Motion</h4><p>Buka aplikasi Alight Motion, login pakai email yang sama. Premium sudah aktif otomatis.</p></div></div>
+    </div>
+    <div class="card reveal d2">
+      <div class="section-title"><h3>❓ FAQ</h3><div class="bar"></div></div>
+      <div class="accordion"><div class="acc-head"><span>Link tidak masuk ke email?</span><span class="plus">+</span></div><div class="acc-body">Tunggu hingga 5 menit, lalu cek folder Spam/Promotions. Pastikan email yang kamu masukkan benar dan tidak typo.</div></div>
+      <div class="accordion"><div class="acc-head"><span>Link sudah expired?</span><span class="plus">+</span></div><div class="acc-body">Link verifikasi hanya berlaku sekitar 1 jam. Kalau expired, kirim ulang link baru dari tab <b>Kirim Link</b>.</div></div>
+      <div class="accordion"><div class="acc-head"><span>Apa itu Order ID?</span><span class="plus">+</span></div><div class="acc-body">Order ID adalah kode unik transaksi, formatnya <code>GPA.XXXX-XXXX-XXXX-XXXXX</code>.</div></div>
+      <div class="accordion"><div class="acc-head"><span>Kenapa sisa limit berkurang?</span><span class="plus">+</span></div><div class="acc-body">Setiap pengiriman link yang berhasil akan mengurangi 1 poin limit pada plan yang sedang aktif.</div></div>
+      <div class="accordion"><div class="acc-head"><span>Premium tidak aktif setelah verifikasi?</span><span class="plus">+</span></div><div class="acc-body">Logout dari aplikasi Alight Motion, tutup aplikasi, lalu login kembali dengan email yang sama.</div></div>
+    </div>
+    <div class="notice dark reveal d3"><span class="ic">🛡️</span><span>Kami tidak menyimpan email atau data pribadi kamu. Semua proses berjalan langsung melalui API resmi dan bersifat sementara.</span></div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ======================== PROFIL ============================ -->
+  <!-- ============================================================ -->
+  <section id="profil" class="page">
+    <div class="hero reveal" style="padding:22px">
+      <span class="tag">👤 Akun Saya</span>
+      <h2 style="font-size:clamp(22px,6vw,34px)">Profil <span>Pengguna</span></h2>
+      <p>Informasi sesi login dan pengaturan akun kamu.</p>
+    </div>
+    <div class="card reveal d1">
+      <div class="section-title"><h3>📋 Informasi Sesi</h3><div class="bar"></div></div>
+      <div class="kv"><span>Email Login</span><span id="profEmail">—</span></div>
+      <div class="kv"><span>Status</span><span style="color:var(--green)">Aktif</span></div>
+      <div class="kv"><span>Waktu Login</span><span id="profTime">—</span></div>
+      <div class="kv"><span>Plan Aktif</span><span id="profPlan" style="color:var(--blue)">FREE</span></div>
+      <div class="kv"><span>Sisa Limit</span><span id="profLimit" style="color:var(--red)">20</span></div>
+      <button class="btn dark mt" onclick="doLogout()" style="width:100%;">🚪 Logout Akun</button>
+    </div>
+    <div class="card yellow reveal d2">
+      <h3 style="font-size:14px;margin-bottom:10px">ℹ️ Info Lainnya</h3>
+      <p style="font-size:12px; font-weight:500; line-height:1.5;">Pastikan kamu tidak membagikan link verifikasi kamu ke orang lain. Sesi ini tersimpan secara lokal di perangkatmu.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ FLOATING BOTTOM NAV ============ -->
+<nav class="nav">
+  <button class="nav-btn" data-target="home"><span class="ico">🏠</span><span>Home</span></button>
+  <button class="nav-btn" data-target="aktivasi"><span class="ico">🔑</span><span>Aktivasi</span></button>
+  <button class="nav-btn" data-target="bulk"><span class="ico">📦</span><span>Bulk</span></button>
+  <button class="nav-btn" data-target="plan"><span class="ico">💎</span><span>Plan</span></button>
+  <button class="nav-btn" data-target="profil"><span class="ico">👤</span><span>Profil</span></button>
+</nav>
+
+<!-- ============ MODAL LOGIN SUKSES ============ -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-content" style="border-color:var(--green);">
+    <div style="font-size:50px; margin-bottom:15px;">✅</div>
+    <h2 style="font-size:20px; color:var(--green); margin-bottom:10px;">LOGIN BERHASIL!</h2>
+    <p style="font-size:13px; font-weight:600; margin-bottom:20px;">Selamat datang! Akses Dashboard dan Premium kamu sudah terbuka.</p>
+    <button class="btn green" onclick="closeSuccessModal()">Lanjutkan Akses</button>
   </div>
-  
-  <div class="card yellow reveal d2" style="margin-top:18px">
-    <div class="section-title"><h3>📊 Statistik Kamu</h3><div class="bar"></div></div>
-    <div class="kv"><span>Plan Aktif</span><span id="statPlan">FREE</span></div>
-    <div class="kv"><span>Total Generate Sukses</span><span id="statUsed">0</span></div>
-    <div class="kv"><span>Sisa Limit Plan Aktif</span><span id="statLeft">20</span></div>
-    <button class="btn sm white mt" style="width:100%" onclick="resetStats()">♻️ Reset Statistik</button>
+</div>
+
+<!-- ============ MODAL QRIS ============ -->
+<div class="modal-overlay" id="qrModal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal">✖</button>
+    <h3 id="modalTitle" style="font-size:18px; margin-bottom:5px;">Pembayaran</h3>
+    <p style="font-size:12px; font-weight:600; opacity:0.7;">Scan QRIS di bawah ini</p>
+    <img src="/assets/qris-payment.png" alt="QRIS Payment" class="modal-img" onerror="this.src='https://i.ibb.co/3k1H3zZ/qr-placeholder.png'; this.alt='Gambar qris-payment.png tidak ditemukan';">
+    <p style="font-size:11px; font-weight:700; color:#ff4444; margin-bottom:15px;">*Jangan lupa kirim bukti transfer ke Admin!</p>
+    <button class="btn blue sm" id="btnCheckPay" style="width:100%; margin-bottom:10px;"><span class="spin"></span><span class="btn-txt">🔍 Cek Status Pembayaran</span></button>
+    <button class="btn sm" id="btnConfirmPay" style="width:100%; display:none;">Saya Sudah Bayar</button>
+    <div id="payStatusText" style="display:none; font-size:12px; font-weight:bold; color:var(--green); margin-top:10px;"></div>
   </div>
-  <div class="notice reveal d3"><span class="ic">⚠️</span><span>Limit berkurang <b>1 poin</b> setiap kali kamu berhasil mengirim link premium dari menu Aktivasi.</span></div>
-</section>
+</div>
+
+<div class="toast" id="toast">Berhasil!</div>
+
+<!-- ============ MAIN JAVASCRIPT MODULE ============ -->
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>
