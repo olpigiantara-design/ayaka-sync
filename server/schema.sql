@@ -5,6 +5,8 @@
 -- 1. TABLE: users (Akun Pengguna)
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  username VARCHAR(50) UNIQUE NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
   role VARCHAR(20) DEFAULT 'user' CHECK (role IN ('user', 'admin')),
@@ -31,10 +33,10 @@ CREATE TABLE IF NOT EXISTS payments (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   plan_bought VARCHAR(20) NOT NULL CHECK (plan_bought IN ('pro', 'vip')),
-  amount INTEGER NOT NULL, -- Harga dalam Rupiah (10000, 15000)
+  amount INTEGER NOT NULL,
   status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'success', 'failed', 'expired')),
   payment_method VARCHAR(50) DEFAULT 'qris',
-  order_id VARCHAR(100) UNIQUE NOT NULL, -- ID Transaksi unik
+  order_id VARCHAR(100) UNIQUE NOT NULL,
   paid_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -43,11 +45,11 @@ CREATE TABLE IF NOT EXISTS payments (
 CREATE TABLE IF NOT EXISTS activations (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  email VARCHAR(255) NOT NULL, -- Email target yang diaktivasi
+  email VARCHAR(255) NOT NULL,
   order_id VARCHAR(100),
   plan_at_time VARCHAR(30) DEFAULT 'premium',
   status VARCHAR(30) DEFAULT 'success' CHECK (status IN ('success', 'failed', 'pending')),
-  error_message TEXT, -- Catat error jika gagal
+  error_message TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -57,7 +59,7 @@ CREATE TABLE IF NOT EXISTS bulk_jobs (
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   amount INTEGER NOT NULL,
   status VARCHAR(30) DEFAULT 'pending' CHECK (status IN ('pending', 'success', 'failed')),
-  result JSONB, -- Simpan detail akun yang berhasil digenerate
+  result JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -78,9 +80,10 @@ CREATE TABLE IF NOT EXISTS system_settings (
 );
 
 -- ==========================================
--- INDEXES (Biar Query Database Cepat)
+-- INDEXES
 -- ==========================================
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
 CREATE INDEX IF NOT EXISTS idx_activations_user_id ON activations(user_id);
 CREATE INDEX IF NOT EXISTS idx_activations_created_at ON activations(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_bulk_jobs_user_id ON bulk_jobs(user_id);
