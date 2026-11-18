@@ -22,6 +22,17 @@
   <div class="login-box">
     <h2 id="loginTitle">LOGIN AKUN</h2>
     <p id="loginSubtitle">Masuk untuk mengakses generator Alight Motion Premium.</p>
+    
+    <!-- Input Khusus Register (Disembunyikan saat login) -->
+    <div class="field" id="nameField" style="display: none;">
+      <label class="label">Nama Lengkap</label>
+      <input type="text" id="loginName" placeholder="Budi Santoso" autocomplete="off">
+    </div>
+    <div class="field" id="usernameField" style="display: none;">
+      <label class="label">Username</label>
+      <input type="text" id="loginUsername" placeholder="budisantoso" autocomplete="off">
+    </div>
+
     <div class="field">
       <label class="label">Alamat Email</label>
       <input type="email" id="loginEmail" placeholder="user@gmail.com" autocomplete="off">
@@ -30,6 +41,7 @@
       <label class="label">Password</label>
       <input type="password" id="loginPassword" placeholder="••••••••">
     </div>
+    
     <button class="btn blue" id="btnAuthSubmit">🔑 Masuk Sekarang</button>
     <div style="text-align:center; margin-top:15px; font-size:11px; opacity:0.6; font-weight:600;">
       <span id="loginSwitchText">Belum punya akun? </span>
@@ -429,8 +441,10 @@
     </div>
     <div class="card reveal d1">
       <div class="section-title"><h3>📋 Informasi Sesi</h3><div class="bar"></div></div>
+      <div class="kv"><span>Nama Lengkap</span><span id="profName">—</span></div>
+      <div class="kv"><span>Username</span><span id="profUsername">—</span></div>
       <div class="kv"><span>Email Login</span><span id="profEmail">—</span></div>
-      <div class="kv"><span>Status</span><span style="color:var(--green)">Aktif</span></div>
+      <div class="kv"><span>Status Akun</span><span style="color:var(--green)">Aktif</span></div>
       <div class="kv"><span>Waktu Login</span><span id="profTime">—</span></div>
       <div class="kv"><span>Plan Aktif</span><span id="profPlan" style="color:var(--blue)">FREE</span></div>
       <div class="kv"><span>Sisa Limit</span><span id="profLimit" style="color:var(--red)">20</span></div>
