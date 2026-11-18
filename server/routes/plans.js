@@ -6,6 +6,7 @@ const router = express.Router();
 
 const DEFAULT = { free: 20, pro: 1000, vip: 2000 };
 const VALID = ['free', 'pro', 'vip'];
+const UNAVAILABLE_PLANS = ['pro', 'vip']; // <--- TAMBAHKAN INI
 
 function fmt(p) {
   return {
@@ -39,6 +40,12 @@ router.post('/activate', authRequired, async (req, res) => {
   try {
     const { plan } = req.body;
     if (!VALID.includes(plan)) return res.status(400).json({ error: 'Plan tidak valid' });
+    
+    // --- PROTEKSI BACKEND (COMING SOON) ---
+    if (UNAVAILABLE_PLANS.includes(plan)) {
+      return res.status(403).json({ error: 'Plan ini sedang dalam tahap pengembangan (Coming Soon)' });
+    }
+
     const [updated] = await sql`
       UPDATE user_plans SET plan = ${plan}, updated_at = NOW()
       WHERE user_id = ${req.user.id} RETURNING *
