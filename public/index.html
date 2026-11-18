@@ -45,7 +45,8 @@
     <button class="btn blue" id="btnAuthSubmit">🔑 Masuk Sekarang</button>
     <div style="text-align:center; margin-top:15px; font-size:11px; opacity:0.6; font-weight:600;">
       <span id="loginSwitchText">Belum punya akun? </span>
-      <a href="#" id="btnAuthSwitch" style="color:var(--blue); text-decoration:underline;">Daftar sekarang</a>
+      <!-- PERBAIKAN: Menggunakan javascript:void(0) dan toggleAuthMode(event) -->
+      <a href="javascript:void(0)" id="btnAuthSwitch" onclick="toggleAuthMode(event)" style="color:var(--blue); text-decoration:underline;">Daftar sekarang</a>
     </div>
   </div>
 </div>
