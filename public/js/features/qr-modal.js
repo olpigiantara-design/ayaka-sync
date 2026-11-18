@@ -1,5 +1,6 @@
 import { toast } from '../ui/toast.js';
 import { setPlan } from './plans.js';
+import { CONFIG } from '../config.js';
 
 let selectedPlan = null;
 let currentOrderId = null;
@@ -15,6 +16,12 @@ export function setupQRModal() {
   document.getElementById('btnConfirmPay').addEventListener('click', confirmPayment);
 
   window.openQRModal = (plan, name, price) => {
+    // --- PROTEKSI COMING SOON ---
+    if (plan !== 'free' && CONFIG.PLANS[plan] && CONFIG.PLANS[plan].isAvailable === false) {
+      toast(`Plan ${name} belum tersedia (Coming Soon)!`);
+      return;
+    }
+
     selectedPlan = plan;
     currentOrderId = 'ORD-' + Date.now();
     document.getElementById('modalTitle').innerHTML =
@@ -26,8 +33,9 @@ export function setupQRModal() {
     document.getElementById('payStatusText').style.display = 'none';
     isSuccess = false;
     clearTimeout(paymentTimer);
+    
     // Simulasi: pembayaran dianggap sukses setelah 8 detik (demo)
-    paymentTimer = setTimeout(() => { isSuccess = true; }, 8000);
+    paymentTimer = setTimeout(() => { isSuccess = true; }, CONFIG.UI.PAYMENT_SIMULATION_DELAY);
     modal.classList.add('show');
   };
 }
@@ -44,7 +52,9 @@ async function checkPayment() {
   status.style.display = 'block';
   status.textContent = 'Menghubungkan ke server real-time...';
   status.style.color = 'var(--blue)';
+  
   await new Promise(r => setTimeout(r, 2000));
+  
   if (isSuccess) {
     status.textContent = 'Pembayaran Terverifikasi! ✓';
     status.style.color = 'var(--green)';
