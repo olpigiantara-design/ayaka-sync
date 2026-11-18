@@ -1,6 +1,7 @@
 import { API } from '../api.js';
 import { toast } from '../ui/toast.js';
 import { log } from '../ui/terminal.js';
+import { CONFIG } from '../config.js';
 
 const LABEL = { free: 'FREE', pro: 'PRO', vip: 'VIP' };
 let state = { plan: 'free', limits: { free: 20, pro: 1000, vip: 2000 }, used: 0 };
@@ -36,11 +37,19 @@ function render() {
 }
 
 export async function setPlan(plan) {
+  // --- PROTEKSI COMING SOON ---
+  if (plan !== 'free' && CONFIG.PLANS[plan] && CONFIG.PLANS[plan].isAvailable === false) {
+    toast(`Plan ${LABEL[plan]} belum tersedia (Coming Soon)!`);
+    return;
+  }
+
   try {
     state = await API.activatePlan(plan);
     render();
     toast(`Plan ${LABEL[plan]} diaktifkan`);
-  } catch (e) { toast(e.message); }
+  } catch (e) { 
+    toast(e.message); 
+  }
 }
 
 export async function resetStats() {
@@ -66,8 +75,11 @@ export async function consumeLimit() {
 
 export function setupPlansPage() {
   document.querySelectorAll('[data-plan]').forEach(card => {
-    const btn = card.querySelector('button[onclick*="setPlan"]');
-    if (btn) { btn.removeAttribute('onclick'); btn.addEventListener('click', () => setPlan(card.dataset.plan)); }
+    const btn = card.querySelector('button');
+    if (btn && !btn.hasAttribute('disabled')) { 
+      btn.removeAttribute('onclick'); 
+      btn.addEventListener('click', () => setPlan(card.dataset.plan)); 
+    }
   });
   const resetBtn = document.querySelector('button[onclick*="resetStats"]');
   if (resetBtn) { resetBtn.removeAttribute('onclick'); resetBtn.addEventListener('click', resetStats); }
