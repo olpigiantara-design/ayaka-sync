@@ -1,13 +1,13 @@
 import { CONFIG } from './config.js';
 
 export function getToken() {
-  return localStorage.getItem(CONFIG.TOKEN_KEY);
+  return localStorage.getItem(CONFIG.STORAGE.TOKEN);
 }
 export function setToken(t) {
-  localStorage.setItem(CONFIG.TOKEN_KEY, t);
+  localStorage.setItem(CONFIG.STORAGE.TOKEN, t);
 }
 export function clearToken() {
-  localStorage.removeItem(CONFIG.TOKEN_KEY);
+  localStorage.removeItem(CONFIG.STORAGE.TOKEN);
 }
 
 async function req(path, opts = {}) {
@@ -24,7 +24,12 @@ async function req(path, opts = {}) {
 }
 
 export const API = {
-  register: (email, password) => req('/auth/register', { method: 'POST', body: JSON.stringify({ email, password }) }),
+  // UPDATE DI SINI: Tambah name & username
+  register: (name, username, email, password) => req('/auth/register', { 
+    method: 'POST', 
+    body: JSON.stringify({ name, username, email, password }) 
+  }),
+  
   login: (email, password) => req('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
   me: () => req('/auth/me'),
 
