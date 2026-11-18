@@ -1,0 +1,12 @@
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  color:var(--black);min-height:100vh;
+  padding:170px 16px 150px;overflow-x:hidden;
+}
+h1,h2,h3,h4,.display{
+  font-family:'Archivo Black',sans-serif;letter-spacing:-.5px;line-height:1.05;text-transform:uppercase
+}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}

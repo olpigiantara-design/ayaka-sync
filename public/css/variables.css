@@ -1,0 +1,15 @@
+:root{
+  --yellow:#FFE600;--yellow-soft:#FFF27A;--yellow-deep:#F2D400;
+  --white:#FFFFFF;--black:#0A0A0A;
+  --blue:#2B5CFF;--blue-dark:#1A3EB8;
+  --red:#FF4757;--green:#00C853;
+  --shadow:6px 6px 0 var(--black);
+  --shadow-sm:4px 4px 0 var(--black);
+  --shadow-lg:10px 10px 0 var(--black);
+  --radius:14px;
+}
+body{
+  background:var(--yellow);
+  background-image:radial-gradient(var(--black) 1.1px, transparent 1.1px);
+  background-size:22px 22px;
+}
